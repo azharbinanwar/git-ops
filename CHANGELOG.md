@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 — 2026-07-29
+
+- New: `/init-gitignore` — for a new project before the first commit: detects the stack (Node/Rust/Kotlin/Python/etc.), shows what will be ignored vs what's currently tracked that matches, one Apply writes `.gitignore` and untracks all matches together in a single step — never a separate follow-up call for the same setup
+
 ## 1.1.0 — 2026-07-29
 
 - Renamed `/new-repo` → `/create-repo`, `/new-gist` → `/create-gist` — matches the `/create-*` naming used by everything else that actually creates something real (`/create-pr`, `/create-release`, `/create-issue`)

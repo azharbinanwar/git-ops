@@ -19,6 +19,7 @@ Output exactly this table, nothing else:
 | Command | Use when you want |
 |---|---|
 | /ignore-fix | Add to .gitignore, untrack if already tracked |
+| /init-gitignore | New project: detect stack, show tracked/ignored, one confirm |
 | /undo-commit | Undo last commit, keep changes staged |
 | /merge-pr | Merge a PR — squash/rebase/merge choice |
 | /create-repo | Name + visibility picked first, then confirm details, then create |

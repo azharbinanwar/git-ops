@@ -63,6 +63,7 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 |---|---|
 | `/create-issue [description]` | Describe a bug/feature, then Create/Fix-first — actually creates the issue |
 | `/ignore-fix <file>` | Adds to `.gitignore`, untracks it too (`git rm --cached`) if git already tracks it |
+| `/init-gitignore` | For a new project: detects the stack, shows tracked-vs-ignored, one confirm writes `.gitignore` and untracks matches together |
 | `/undo-commit` | Undo the last commit, keep changes staged — like GitHub Desktop's Undo |
 | `/merge-pr [number]` | Merge a PR — squash/rebase/merge choice |
 | `/create-repo [name]` | Create a new GitHub repo — two steps: pick name + visibility, then confirm the exact details before Create/Fix-first |
