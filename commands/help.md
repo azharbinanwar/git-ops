@@ -21,9 +21,12 @@ Output exactly this table, nothing else:
 | /ignore-fix | Add to .gitignore, untrack if already tracked |
 | /undo-commit | Undo last commit, keep changes staged |
 | /merge-pr | Merge a PR — squash/rebase/merge choice |
-| /new-repo | Create a new GitHub repo |
+| /create-repo | Name + visibility picked first, then confirm details, then create |
+| /add-remote | Connect this folder to an existing GitHub repo |
 | /amend-msg | Change only the last commit's message |
-| /new-gist | Create a gist from a file |
+| /create-gist | Create a gist from a file |
+| /view-gists | List your gists |
+| /view-gist | View one gist's full content, by ID |
 | /discard | Discard uncommitted changes to one file |
 | /squash | Squash the last N commits into one |
 | /clean-branches | Delete local branches already merged |

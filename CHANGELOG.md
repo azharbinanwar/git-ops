@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0 — 2026-07-29
+
+- Renamed `/new-repo` → `/create-repo`, `/new-gist` → `/create-gist` — matches the `/create-*` naming used by everything else that actually creates something real (`/create-pr`, `/create-release`, `/create-issue`)
+- `/create-repo` now bails out immediately if the current folder already has a git remote, instead of risking a conflicting `gh repo create --source=.`
+- New: `/add-remote` — connects a local folder to an *existing* GitHub repo (adds or updates the `origin` remote), for when you already have a repo on GitHub and just need the local side wired up
+- New: `/view-gists` (list), `/view-gist` (one, by ID) — this plugin is GitHub-only throughout (anything using `gh` won't work against Bitbucket/GitLab/etc.), worth noting explicitly in the README
+- `/create-gist` no longer infers or asks public/secret as a separate plain-text question — visibility is now an explicit picker choice (**Create secret / Create public / Fix something first**)
+- `/create-repo` redesigned as a two-step flow: Step 1 locks in the (never-blank) name and visibility via a picker; Step 2 shows those exact details back before a final Create/Fix-first picker — so you always see precisely what's about to be created before it happens
+
 ## 1.0.0 — 2026-07-29
 
 First full release — 58 commands, organized into three tiers:

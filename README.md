@@ -34,7 +34,7 @@ Install the plugin:
 
 Then `/reload-plugins` (or restart Claude Code).
 
-**Requires `gh` (GitHub CLI) installed and logged in** (`gh auth login`) — nearly every command shells out to `gh` or `git`, and the GitHub-facing ones (release, PR, issue, gist, fork, notifications, etc.) won't work without it.
+**Requires `gh` (GitHub CLI) installed and logged in** (`gh auth login`) — nearly every command shells out to `gh` or `git`, and the GitHub-facing ones (release, PR, issue, gist, fork, notifications, etc.) won't work without it. **GitHub-only** — the plain-`git` commands (stash, pull, branch, cherry-pick, blame, etc.) work on any host, but anything using `gh` will not work against Bitbucket, GitLab, or other hosts.
 
 Run `/help` anytime for the full cheat sheet below, right in chat.
 
@@ -65,9 +65,9 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/ignore-fix <file>` | Adds to `.gitignore`, untracks it too (`git rm --cached`) if git already tracks it |
 | `/undo-commit` | Undo the last commit, keep changes staged — like GitHub Desktop's Undo |
 | `/merge-pr [number]` | Merge a PR — squash/rebase/merge choice |
-| `/new-repo [name]` | Create a new GitHub repo — suggests a name, asks public/private |
+| `/create-repo [name]` | Create a new GitHub repo — two steps: pick name + visibility, then confirm the exact details before Create/Fix-first |
 | `/amend-msg <message>` | Change only the last commit's message, content untouched |
-| `/new-gist <file>` | Create a gist from a file — suggests a description, asks public/secret |
+| `/create-gist <file>` | Create a gist from a file — suggests a description, then Create Secret/Public/Fix-first picker |
 | `/discard <file>` | Discard uncommitted changes to one file — this loses that work |
 | `/squash <N>` | Squash the last N commits into one |
 | `/clean-branches` | Delete local branches already merged into the default branch |
@@ -81,6 +81,7 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/reset-hard` | Hard-reset local branch to exactly match remote — discards all local commits/changes, offers **Reset anyway / Stash first / Cancel** |
 | `/merge-branch <branch>` | Merge one local branch into another — direct git merge, not a PR |
 | `/approve-pr [number]` | Approve a PR, with an optional comment |
+| `/add-remote <owner/repo or URL>` | Connect this local folder to an existing GitHub repo (adds or updates `origin`) |
 
 ### Everyday — quick, low-cost, no confirmation needed
 | Command | What it does |
@@ -116,8 +117,10 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/clone <repo>` | Clone a repo by `owner/repo` or URL — states the full destination path first |
 | `/fetch` | Fetch the latest from remote — no merge, just shows what's new |
 | `/review-pr <number>` | Check out a PR locally and show its diff, before deciding anything |
+| `/view-gists` | List your gists |
+| `/view-gist <id>` | View one gist's full content, by ID |
 
-## Does having 58 commands cost tokens?
+## Does having 61 commands cost tokens?
 
 No. Every command sets `disable-model-invocation: true`, so none of them are loaded into Claude's context until the moment you type one — then only that command's own instructions are added, for that turn. Idle cost: ~zero. Use the handful you reach for daily, ignore the rest.
 
