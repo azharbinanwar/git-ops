@@ -1,0 +1,13 @@
+{
+  "name": "git-ops",
+  "owner": {
+    "name": "Azhar Ali"
+  },
+  "plugins": [
+    {
+      "name": "git-ops",
+      "source": "./",
+      "description": "Typed, per-turn git commands with real Create/Fix pickers before anything risky happens."
+    }
+  ]
+}
