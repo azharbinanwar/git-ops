@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0 — 2026-07-30
+
+- `/create-repo`'s **Create** step no longer pushes or commits anything — it now only runs `gh repo create <name> --public/--private`, nothing else. Previously `--source=. --remote=origin --push` was used when the folder was already a git repo, which required an existing commit to push and led to an unrequested `git commit` being run just to make that work.
+- New **Step 3**: after the repo is created, a separate Yes/No picker asks whether to wire up the local `origin` remote (`git init` if needed, then `git remote add`/`set-url`). Even choosing Yes only connects the remote — it never pushes. Pushing is always left to `/commit-and-push` or similar, run separately whenever the user is ready.
+- Renamed `/ignore-fix` → `/add-to-ignore`, and it now presents a real picker (**Add to .gitignore** / **Add to .git/info/exclude** / Fix something first) instead of silently guessing which one the repo already relies on — `.git/info/exclude` is the right call for personal/tool-specific noise (e.g. AI-assistant working files) that shouldn't show up in the shared, committed `.gitignore`.
+- New: `/refresh-ignore` — no argument, re-checks whatever's already in `.gitignore`/`.git/info/exclude` against currently tracked files and untracks anything that now matches, in one step. For when patterns were added earlier but tracking was never refreshed against them.
+
 ## 1.2.0 — 2026-07-29
 
 - New: `/init-gitignore` — for a new project before the first commit: detects the stack (Node/Rust/Kotlin/Python/etc.), shows what will be ignored vs what's currently tracked that matches, one Apply writes `.gitignore` and untracks all matches together in a single step — never a separate follow-up call for the same setup

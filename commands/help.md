@@ -18,11 +18,12 @@ Output exactly this table, nothing else:
 **Risky — real Create/Fix (or 3-way) picker first**
 | Command | Use when you want |
 |---|---|
-| /ignore-fix | Add to .gitignore, untrack if already tracked |
+| /add-to-ignore | Add a file/folder — pick .gitignore vs .git/info/exclude, untracks if already tracked |
+| /refresh-ignore | Re-check existing ignore rules against tracked files, untrack new matches |
 | /init-gitignore | New project: detect stack, show tracked/ignored, one confirm |
 | /undo-commit | Undo last commit, keep changes staged |
 | /merge-pr | Merge a PR — squash/rebase/merge choice |
-| /create-repo | Name + visibility picked first, then confirm details, then create |
+| /create-repo | Name + visibility, create, then separate yes/no on wiring remote — never pushes |
 | /add-remote | Connect this folder to an existing GitHub repo |
 | /amend-msg | Change only the last commit's message |
 | /create-gist | Create a gist from a file |

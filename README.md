@@ -62,11 +62,12 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | Command | What it does |
 |---|---|
 | `/create-issue [description]` | Describe a bug/feature, then Create/Fix-first — actually creates the issue |
-| `/ignore-fix <file>` | Adds to `.gitignore`, untracks it too (`git rm --cached`) if git already tracks it |
+| `/add-to-ignore <file>` | Picks `.gitignore` (shared) vs `.git/info/exclude` (local-only) instead of guessing, untracks it too (`git rm --cached`) if git already tracks it |
+| `/refresh-ignore` | Re-checks existing `.gitignore`/`.git/info/exclude` patterns against currently tracked files, untracks anything that now matches — no argument needed |
 | `/init-gitignore` | For a new project: detects the stack, shows tracked-vs-ignored, one confirm writes `.gitignore` and untracks matches together |
 | `/undo-commit` | Undo the last commit, keep changes staged — like GitHub Desktop's Undo |
 | `/merge-pr [number]` | Merge a PR — squash/rebase/merge choice |
-| `/create-repo [name]` | Create a new GitHub repo — two steps: pick name + visibility, then confirm the exact details before Create/Fix-first |
+| `/create-repo [name]` | Create a new GitHub repo — pick name + visibility, confirm and create, then a separate yes/no on wiring up the local remote. Never pushes or commits on your behalf — that's always a separate step |
 | `/amend-msg <message>` | Change only the last commit's message, content untouched |
 | `/create-gist <file>` | Create a gist from a file — suggests a description, then Create Secret/Public/Fix-first picker |
 | `/discard <file>` | Discard uncommitted changes to one file — this loses that work |
