@@ -2,6 +2,7 @@
 description: Describe a bug/feature, then Create/Fix-first — actually creates the GitHub issue
 argument-hint: [bug/feature description, or nothing = current discussion]
 allowed-tools: Bash(gh issue create:*)
+model: sonnet
 disable-model-invocation: true
 ---
 Draft a title (≤70 chars) and body from the description below, using only the sections that actually apply — don't invent detail that wasn't given:

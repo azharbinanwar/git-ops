@@ -1,6 +1,7 @@
 ---
 description: Commit message from real open changes — never commits, no AI sign
 allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*)
+model: sonnet
 disable-model-invocation: true
 ---
 ## Context

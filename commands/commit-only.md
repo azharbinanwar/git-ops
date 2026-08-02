@@ -2,6 +2,7 @@
 description: List changes + message, pick Commit or Fix first — commits locally, never pushes
 argument-hint: [optional: anything to emphasize]
 allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*)
+model: sonnet
 disable-model-invocation: true
 ---
 ## Context

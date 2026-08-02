@@ -116,7 +116,7 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/view-issue <number\|text>` | View one issue's full details — by number or title search |
 | `/view-pr <number\|text>` | View one PR's full details — by number or title search |
 | `/blame <file>` | Who last touched each line of a file, quickly |
-| `/clone <repo>` | Clone a repo by `owner/repo` or URL — states the full destination path first |
+| `/clone <repo>` | Clone a repo by `owner/repo` or URL — asks where first (parent folder recommended, never inside the current project) |
 | `/fetch` | Fetch the latest from remote — no merge, just shows what's new |
 | `/review-pr <number>` | Check out a PR locally and show its diff, before deciding anything |
 | `/view-gists` | List your gists |

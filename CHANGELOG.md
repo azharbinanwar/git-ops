@@ -1,6 +1,12 @@
 # Changelog
 
-## 1.3.0 — 2026-07-30
+## 1.4.0 — 2026-08-03
+
+- 8 everyday commands rewritten to pre-run their git/gh command and inject the output before the model starts, instead of instructing the model to run it via a tool call: `/remote-url`, `/tags`, `/pr-status`, `/workflow-status`, `/repo-info`, `/notifications`, `/view-gists`, `/view-issues`. One model round-trip instead of 2–9, measured ~2× faster (A/B, 18 fresh sessions: total 88s → 48s, output tokens −48%, cached input reads −71%), and immune to mid-run permission stalls — the data is already in the prompt, so the model never has to ask to run anything. `/fetch` deliberately left as-is: its pre-run network fetch measured slower.
+- `/tags` now uses a single `git tag --sort=-creatordate --format=...` call instead of one `git log` per tag (the old flow measured 9 turns / 26.9s on a 4-tag repo).
+- `/create-pr`: target-branch picker now lists **remote** branches instead of local ones — a PR can only merge into a branch that exists on GitHub, so local-only branches were wrong to offer and remote-only ones (e.g. `main` never checked out locally) were wrongly missing.
+- Pinned `model: sonnet` on all seven writing commands (`/commit-msg`, `/commit-only`, `/commit-and-push`, `/create-pr`, `/create-release`, `/pr-desc`, `/create-issue`) — drafting a commit message or PR description doesn't need the session's (often much pricier) model, and an explicit pin makes the cost predictable for every user.
+- `/clone` redesigned: never clones into the current folder (nesting a repo inside the project you're working in is almost never wanted). Presents a real destination picker first — **Parent folder (Recommended)** / **Desktop**, full resolved paths shown, typed path accepted — then states the final path and clones with an explicit destination.
 
 - `/create-repo`'s **Create** step no longer pushes or commits anything — it now only runs `gh repo create <name> --public/--private`, nothing else. Previously `--source=. --remote=origin --push` was used when the folder was already a git repo, which required an existing commit to push and led to an unrequested `git commit` being run just to make that work.
 - New **Step 3**: after the repo is created, a separate Yes/No picker asks whether to wire up the local `origin` remote (`git init` if needed, then `git remote add`/`set-url`). Even choosing Yes only connects the remote — it never pushes. Pushing is always left to `/commit-and-push` or similar, run separately whenever the user is ready.

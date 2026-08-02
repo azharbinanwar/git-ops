@@ -2,6 +2,7 @@
 description: PR title + description from the branch diff — no AI sign
 argument-hint: [optional extra context]
 allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git branch:*), Bash(git merge-base:*), Bash(git symbolic-ref:*)
+model: sonnet
 disable-model-invocation: true
 ---
 Write a PR title and description for the current branch. Steps:

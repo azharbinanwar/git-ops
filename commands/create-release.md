@@ -2,6 +2,7 @@
 description: Show version + notes, pick Create or Fix first — actually creates the GitHub release
 argument-hint: [optional: version override, e.g. 1.4.0]
 allowed-tools: Bash(git tag:*), Bash(git log:*), Bash(git describe:*), Bash(git remote:*), Bash(gh auth status:*), Bash(gh release create:*)
+model: sonnet
 disable-model-invocation: true
 ---
 ## Context
