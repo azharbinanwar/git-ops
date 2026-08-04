@@ -35,6 +35,10 @@ check "open: gist needs no repo"    "gist.github.com/xyz"           < <(cd "$TMP
 check "open: notifications global"  "github.com/notifications"      < <(cd "$TMP" && bash "$S/open.sh" notifications)
 check "open: compare file anchor"   "#diff-"                        < <(bash "$S/open.sh" compare "a...b" f.txt)
 check "open: pr number required"    "error: PR number required"     < <(bash "$S/open.sh" pr)
+check "open: branches page"         "/branches"                     < <(bash "$S/open.sh" branches)
+check "open: branch tree default"   "/tree/"                        < <(bash "$S/open.sh" branch)
+check "vbranches: shows current"    "[current]"                     < <(bash "$S/view-branches.sh")
+check "vbranches: not a repo"       "error: not a git repo"         < <(cd "$TMP" && bash "$S/view-branches.sh")
 
 # untracked-scan.sh
 mkdir -p sub/build; echo x > sub/keep.txt; echo y > sub/build/junk.bin; echo z > sub/local.properties

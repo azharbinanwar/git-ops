@@ -57,6 +57,9 @@ Output exactly this table, nothing else:
 | /pop-stash | Pick a stash, restore it — pop or apply |
 | /create-branch | Suggest a name, create + switch |
 | /checkout-branch | Pick a branch from a list, switch safely |
+| /view-branches | All branches: age, author, merged/pushed state |
+| /open-branches | Open the branches page on GitHub |
+| /open-branch | Open a branch's file tree on GitHub |
 | /view-prs | List ALL open PRs (any author) with CI/review |
 | /unstage | Undo git add on one file |
 | /pr-status | List your open PRs + CI/review status |

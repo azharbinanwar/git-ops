@@ -98,6 +98,9 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/pop-stash [ref]` | Pick a stash and restore it — pop (remove) or apply (keep as backup) |
 | `/create-branch <description>` | Suggest a branch name, create + switch to it |
 | `/checkout-branch [name]` | Pick a branch from a list (local + remote), switch safely |
+| `/view-branches` | All branches with age, author, created-from, merged and pushed state |
+| `/open-branches` | Open the branches page in the browser |
+| `/open-branch [name]` | Open a branch's file tree in the browser — current branch default |
 | `/view-prs` | List ALL open PRs (any author) with CI/review status |
 | `/unstage <file>` | Undo `git add` on one file, keeps the changes |
 | `/pr-status` | List your open PRs with CI/review status |
@@ -137,7 +140,7 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/view-gists` | List your gists |
 | `/view-gist <id>` | View one gist's full content, by ID |
 
-## Does having 77 commands cost tokens?
+## Does having 80 commands cost tokens?
 
 No. Every command sets `disable-model-invocation: true`, so none of them are loaded into Claude's context until the moment you type one — then only that command's own instructions are added, for that turn. Idle cost: ~zero. Use the handful you reach for daily, ignore the rest.
 
