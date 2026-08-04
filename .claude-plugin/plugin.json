@@ -1,6 +1,6 @@
 {
   "name": "git-ops",
-  "version": "1.5.0-alpha.2",
+  "version": "1.5.0-alpha.3",
   "description": "Typed, per-turn git commands with real Create/Fix pickers before anything risky happens — commit, push, release, PR, and more, without re-explaining the flow every time.",
   "author": {
     "name": "Azhar Ali"
