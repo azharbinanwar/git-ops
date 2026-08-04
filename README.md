@@ -12,6 +12,7 @@ Ask a coding assistant to "commit this" or "clean up my branches" and you're rol
 
 - Every commit/push/release/merge/reset shows what will happen first, then asks — never acts blind
 - Nothing destructive runs without a real picker: **Commit & Push**, **Reset anyway / Stash first / Cancel**, **Merge / Fix something first** — actual choices, not a rhetorical "should I proceed?"
+- Every commit and PR gets a **Secrets check** before you approve: files that may hold secrets (`.env`, keystores, `local.properties`, private keys, ~25 patterns) are flagged with a plain-words reason and action — and if the repo is public, it says so. Installs of [gitleaks](https://github.com/gitleaks/gitleaks) are detected and its content-level scan joins in automatically.
 - No AI attribution, anywhere — no `Co-Authored-By: Claude`, no "Generated with," in commits, releases, PRs, issues, gists, or comments
 - History-rewriting actions (`reset-hard`, `squash`, `amend-msg`, rebasing) always warn you first if the commit is already pushed
 - Ambiguous commands are split, not guessed — `/close-issue` vs `/close-pr`, `/assign-issue` vs `/assign-pr` — one direct `gh` call each, no auto-detect roulette
@@ -55,7 +56,7 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/commit-only` | Lists changes + message, then a real Commit/Fix-first picker — commits locally, never pushes |
 | `/commit-and-push` | Same flow, but the picker's Commit & Push option pushes too |
 | `/create-release` | Shows the version + release notes, then Create/Fix-first — actually creates the GitHub release |
-| `/create-pr` | Detects the real default branch, checks for a duplicate PR, shows title/description, then Create/Fix-first — actually opens the PR |
+| `/create-pr` | Detects the real default branch, checks for duplicates, shows title/description + Secrets check, then Create / Create-as-draft / Fix-first — actually opens the PR |
 | `/pr-desc` | PR title + description from the branch diff (doesn't open it) |
 
 ### Risky actions — real Create/Fix-first (or 3-way) picker
@@ -110,7 +111,7 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/assign-pr [number] <username\|"me">` | Assign a PR to yourself or another developer |
 | `/request-review` | Pick reviewers from the collaborator list (multi-select) for the current PR |
 | `/view-actions` | Latest GitHub Actions runs' pass/fail — pairs with `/open-actions` |
-| `/repo-info` | Quick stats: stars, open issues, open PRs, last release |
+| `/repo-info` | Repo card: visibility, default branch, community, activity + last push, release, URL, next actions |
 | `/mark-draft` | Convert an existing PR back to draft status |
 | `/view-tags` | List all tags with dates — pairs with `/open-tags` |
 | `/remote-url` | Print the remote URL |
