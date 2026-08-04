@@ -94,6 +94,8 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 |---|---|
 | `/help` | This whole cheat sheet, in chat |
 | `/stash <name>` | Stash your changes with a name |
+| `/view-stashes` | List all stashes with names and age |
+| `/pop-stash [ref]` | Pick a stash and restore it — pop (remove) or apply (keep as backup) |
 | `/create-branch <description>` | Suggest a branch name, create + switch to it |
 | `/checkout-branch [name]` | Pick a branch from a list (local + remote), switch safely |
 | `/view-prs` | List ALL open PRs (any author) with CI/review status |

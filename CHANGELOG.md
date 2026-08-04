@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- New `/view-stashes` (list with names + age) and `/pop-stash` (picker: which stash, then Pop or Apply — apply keeps the stash as backup; a failed pop never drops the stash). Completes the stash lifecycle that `/stash` and `/create-branch`'s stash option start.
+- `/create-branch` (renamed from `/new-branch`): asks for a description when none given, and open changes now offer a picker — take them to the new branch (recommended; `git checkout -b` carries work safely, the old hard-stop warning was simply wrong), stash first, or cancel.
 - Renamed `/new-branch` → `/create-branch` — matches the `/create-*` family (`/create-pr`, `/create-repo`, `/create-gist`, …), finishing the rename started in 1.1.0.
 - Seven new/upgraded commands for everyday branch and PR work:
   - `/change-visibility` — flip the repo public/private with the consequences stated in the picker itself (private→public: all history becomes visible; public→private: stars/forks lost). `/repo-info` now shows current visibility.

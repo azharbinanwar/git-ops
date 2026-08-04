@@ -53,6 +53,8 @@ Output exactly this table, nothing else:
 | Command | Use when you want |
 |---|---|
 | /stash | Stash changes with a name |
+| /view-stashes | List all stashes with names + age |
+| /pop-stash | Pick a stash, restore it — pop or apply |
 | /create-branch | Suggest a name, create + switch |
 | /checkout-branch | Pick a branch from a list, switch safely |
 | /view-prs | List ALL open PRs (any author) with CI/review |
