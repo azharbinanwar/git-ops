@@ -1,13 +1,24 @@
 ---
-description: Quick repo stats — stars, open issues, open PRs, last release
+description: Repo card — visibility, branch, community, activity, last release, next actions
 allowed-tools: Bash(gh repo view:*), Bash(gh release list:*)
 model: haiku
 effort: low
 disable-model-invocation: true
 ---
 ## Context
-- Repo stats: !`gh repo view --json stargazerCount,issues,pullRequests,visibility --jq '"visibility: \(.visibility)  stars: \(.stargazerCount)  open issues: \(.issues.totalCount)  open PRs: \(.pullRequests.totalCount)"' 2>&1 || true`
+- Repo: !`gh repo view --json nameWithOwner,visibility,defaultBranchRef,stargazerCount,forkCount,watchers,issues,pullRequests,pushedAt,url --jq '"\(.nameWithOwner)|\(.visibility)|\(.defaultBranchRef.name)|\(.stargazerCount)|\(.forkCount)|\(.watchers.totalCount)|\(.issues.totalCount)|\(.pullRequests.totalCount)|\(.pushedAt)|\(.url)"' 2>&1 || true`
 - Last release: !`gh release list --limit 1 2>&1 || true`
 
 ## Task
-Report the stats from Context above as a few short lines: visibility (mention `/change-visibility` if they want to change it), stars, open issues, open PRs, last release + date (or "no releases yet"). Do not run any commands — the data is already there.
+From Context above only (run nothing), render exactly this card (fields in order: name|visibility|default branch|stars|forks|watchers|issues|PRs|pushedAt|url):
+
+```
+Repo:        <name> (<VISIBILITY> — /change-visibility to change)
+Branch:      <default> (default)
+Community:   <stars> stars · <forks> forks · <watchers> watching
+Activity:    <issues> open issues · <PRs> open PRs · last push <relative age from pushedAt>
+Release:     <tag + date, or "none yet">
+URL:         <url>
+
+→ /view-prs · /view-issues · /open-releases · /open-repo
+```

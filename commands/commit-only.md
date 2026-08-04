@@ -22,7 +22,7 @@ disable-model-invocation: true
    - **commit-title** — the subject line, ≤72 chars, matching the repo's existing message style.
    - **commit-body** — the rest of the message, only if the diff genuinely needs one, ≤6 lines unless the diff truly demands more. Never include AI attribution of any kind (no "Co-Authored-By: Claude", no "Generated with" lines).
    `commit-title` + `commit-body` together are the exact text that goes into `git commit` — Change list and AI check are review-only, never part of the commit.
-3. Present two options via the option-picker tool (never plain text):
+3. Present two options via the option-picker tool (never plain text). Picker question and option labels must be plain short text — never objects, JSON, or templates — and each option's description must state in words exactly what will run:
    - **Commit** — run exactly one command: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/commit-only.sh"` with `commit-title` + blank line + `commit-body` piped to stdin via heredoc. The script stages everything and commits — it never pushes, and refuses `--no-verify` by construction. Report its output verbatim — if it starts with "error:", that is the full story: relay it and stop, run nothing else.
    - **Fix something first** — ends the turn immediately, nothing committed. A typed correction = the fix: apply it, then re-show the corrected `commit-title`/`commit-body` with this picker.
 
