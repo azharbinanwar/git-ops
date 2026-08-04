@@ -1,5 +1,5 @@
 ---
-description: All branches with age, author, created-from, merged and pushed state
+description: All branches as a table — age, state, PR, creator
 allowed-tools: Bash(bash:*)
 model: haiku
 effort: low
@@ -9,6 +9,16 @@ disable-model-invocation: true
 - Branches: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/view-branches.sh"`
 
 ## Task
-From Context above only (run nothing), render the local branch rows as printed (they are pre-formatted: flags, name, age/author/origin, state). After them, list names appearing under `---remote-only---` that have no local row, as `remote only: <name>` lines (omit if none).
+From Context above only (run nothing), render one aligned monospace table (pad columns with spaces, in a code block):
 
-End with: `<N> branches — /checkout-branch to switch · /delete-branch to clean up · /open-branches for GitHub`. If the context starts with "error:", report that line instead.
+```
+BRANCH                     AGE   STATE        PR         WHO
+> feat/token-optimization  40s   ahead 2      #12 open   Azhar
+  fix/dark-mode            3d    merged ✓     #9 merged  Azhar
+  main (default)           2h    —            —          —
+  hotfix/crash (remote)    —     not local    —          —
+```
+
+Rules: `>` marks the current branch; `(default)` and `(remote)` as suffixes; AGE compact (40s/2h/3d); STATE = `ahead N` (unpushed commits) / `merged ✓` / `not merged` / `local only` / `not local` / `—` for the default; PR = `#N state` or `—`; WHO = creator's first name or `—`. Remote-only names come from the `---remote-only---` section (skip ones that already have a local row).
+
+End with: `<N> branches · /checkout-branch · /delete-branch · /open-branches`. If the context starts with "error:", report that line instead.
