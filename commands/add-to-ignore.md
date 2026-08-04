@@ -17,7 +17,7 @@ Once the path is confirmed correct, check whether it's already tracked (`git ls-
 Present real selectable options using the option-picker tool, not plain-text yes/no — never assume or auto-pick the location, always ask:
 - **Add to .gitignore** — a normal, shared, committed ignore rule everyone who clones the repo gets.
 - **Add to .git/info/exclude** — a local-only ignore rule, never committed or shared — the right choice for personal/tool-specific noise (e.g. AI-assistant working files) you don't want showing up in the repo's own `.gitignore` for everyone else.
-- **Fix something first** — ends the turn immediately, nothing changed. Do not guess what's wrong, do not ask follow-ups. Wait for the next message. If instead the user types a correction directly (the picker's built-in free-text option) rather than picking this, treat that text as the fix itself — apply it, then show the corrected plan and this picker again, don't just stop.
+- **Fix something first** — ends the turn immediately, nothing changed. A typed correction = the fix: apply it, then re-show the corrected plan with this picker.
 
 Whichever location is picked: add the entry, run `git rm --cached` if it was tracked, then report what changed and remind the user a commit is needed afterward if anything was untracked.
 

@@ -126,12 +126,27 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 
 No. Every command sets `disable-model-invocation: true`, so none of them are loaded into Claude's context until the moment you type one — then only that command's own instructions are added, for that turn. Idle cost: ~zero. Use the handful you reach for daily, ignore the rest.
 
+## Fast and cheap by design
+
+Since 1.5.0, the mechanical half of every major flow runs as a bundled shell script instead of model-improvised commands — the model keeps only the judgment work (messages, review sections, pickers), then hands the approved text to one deterministic script call. Measured on real runs (haiku, fresh sessions):
+
+| Flow | Before | After |
+|---|---|---|
+| `/open-*` commands | 405–906 output tokens, 3–6 turns, 3 of 6 failing permission checks | ~95–170 tokens, always 1 turn, 0 failures |
+| `/unstage` | 622 tokens, 5 turns | 125 tokens, 1 turn |
+| commit → push execution | 4 turns of separate git calls | 2 turns, one script call |
+
+Determinism is the bigger win: `--force` and `--no-verify` don't exist in the scripts, failures print exactly what happened and stop, and every commit receipt lists the files that actually went in. Model pins (`haiku`/`sonnet`) and `effort: low` on all mechanical commands keep the judgment half cheap and predictable too.
+
+Scripts are plain `bash` + `git` + `gh`. **Tested on macOS; designed for Linux and Windows (git-bash)** — `bash tests.sh` runs the offline test suite (21 checks, no network needed), and CI runs it on all three platforms.
+
 ## Design principles
 
 - **Show, then ask.** Every command that changes something shows you the real diff/message/plan first, using a genuine option-picker — not a plain-text "yes?" you can skim past.
 - **Typed corrections count as answers.** On any picker, typing a correction instead of picking an option is treated as the fix itself — applied immediately, then the corrected plan and picker are shown again. No re-explaining from scratch.
 - **Never guess on ambiguity.** Fuzzy-matched names, issue-vs-PR detection, and default branches are resolved from real data (`gh`/`git` output), not assumed — and where two things could mean different actions (issue vs PR), they're separate commands instead of one guessing which you meant.
 - **History-safety by default.** Anything that rewrites already-pushed history warns you explicitly, first — no silent force-pushes, ever.
+- **Judgment by model, mechanics by script.** The model writes messages and shows you what will happen; a deterministic script does the staging/committing/pushing. Same steps every run, dangerous flags physically absent, failures reported verbatim.
 
 ## Rules vs commands — where should your habit go?
 

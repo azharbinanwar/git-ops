@@ -6,8 +6,12 @@ model: haiku
 effort: low
 disable-model-invocation: true
 ---
-If $ARGUMENTS is a number, run `gh pr view <number>` directly. If it's text instead, search open PRs by title (`gh pr list --search "<text>"`) and show the best match's full details the same way — or, if more than one is a close match, list those few candidates and ask which one instead of guessing.
+## Context
+- PR (valid when a number was given): !`gh pr view $ARGUMENTS --json number,title,author,headRefName,baseRefName,state,url,mergedAt,mergeCommit,reviewDecision,body,statusCheckRollup,comments --jq '{n:.number,t:.title,by:.author.login,from:.headRefName,to:.baseRefName,state:.state,url:.url,merged:(.mergedAt//""),commit:((.mergeCommit.oid//"")[0:7]),review:(.reviewDecision|if .==null or .=="" then "none" else . end),checks:[.statusCheckRollup[]?|{c:.name,r:(.conclusion//.status)}][0:10],body:.body,comments:[.comments[]?|{by:.author.login,text:.body}][-5:]}' 2>&1 || true`
 
-Report: title, author, branch, status, CI, review status, description, and recent comments — read-only, no actions offered.
+## Task
+If the "PR" context above is valid JSON, render it — run nothing. If it shows an error (text was given instead of a number), search with `gh pr list --search "$ARGUMENTS"` and view the best match the same compact way — if several match closely, list them and ask which one instead of guessing.
+
+Report: title, author, branch → base, state (+ merged at / squash commit when merged), CI per check, review status, URL, then the description quoted, then the last comments (or "none"). Read-only, no actions offered.
 
 PR number or title text: $ARGUMENTS

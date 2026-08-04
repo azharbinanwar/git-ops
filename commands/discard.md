@@ -8,8 +8,8 @@ disable-model-invocation: true
 ---
 Show what will be lost — a short summary of `git diff <file>`, not the whole diff if it's long.
 
-Present two real selectable options using the option-picker tool, not plain-text yes/no:
+Present two options via the option-picker tool (never plain text):
 - **Discard** — runs `git restore <file>`, permanently reverting it to the last committed version. This deletes the uncommitted changes — there is no undo.
-- **Fix something first** — ends the turn immediately, nothing discarded. Do not guess what's wrong, do not ask follow-ups. Wait for the next message. If instead the user types a correction directly (the picker's built-in free-text option) rather than picking this, treat that text as the fix itself — apply it, then show the corrected plan and this picker again, don't just stop.
+- **Fix something first** — ends the turn immediately, nothing discarded. A typed correction = the fix: apply it, then re-show the corrected plan with this picker.
 
 File: $ARGUMENTS

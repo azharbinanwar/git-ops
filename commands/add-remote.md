@@ -10,8 +10,8 @@ Check if this folder is already a git repo (`git rev-parse --is-inside-work-tree
 
 If $ARGUMENTS is empty, ask for the repo (`owner/repo` or full URL) instead of guessing.
 
-Present two real selectable options using the option-picker tool, not plain-text yes/no:
+Present two options via the option-picker tool (never plain text):
 - **Connect it** — runs `git init` first if this isn't a git repo yet, then `git remote add origin <url>` if no remote exists, or `git remote set-url origin <url>` if one already exists (replacing it). Report the resulting remote URL.
-- **Fix something first** — ends the turn immediately, nothing connected. Do not guess what's wrong, do not ask follow-ups. Wait for the next message. If instead the user types a correction directly (the picker's built-in free-text option) rather than picking this, treat that text as the fix itself — apply it, then show the corrected plan and this picker again, don't just stop.
+- **Fix something first** — ends the turn immediately, nothing connected. A typed correction = the fix: apply it, then re-show the corrected plan with this picker.
 
 Repo (owner/repo or URL): $ARGUMENTS

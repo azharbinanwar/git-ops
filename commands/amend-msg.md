@@ -10,8 +10,8 @@ Show the last commit's current message. Check if it's already pushed (compare to
 
 If $ARGUMENTS is empty, ask for the new message instead of guessing one.
 
-Present two real selectable options using the option-picker tool, not plain-text yes/no:
+Present two options via the option-picker tool (never plain text):
 - **Amend** — runs `git commit --amend -m "<new message>"` (content unchanged). Report the new commit hash.
-- **Fix something first** — ends the turn immediately, nothing changed. Do not guess what's wrong, do not ask follow-ups. Wait for the next message. If instead the user types a correction directly (the picker's built-in free-text option) rather than picking this, treat that text as the fix itself — apply it, then show the corrected plan and this picker again, don't just stop.
+- **Fix something first** — ends the turn immediately, nothing changed. A typed correction = the fix: apply it, then re-show the corrected plan with this picker.
 
 New message: $ARGUMENTS

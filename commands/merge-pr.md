@@ -6,12 +6,18 @@ model: haiku
 effort: low
 disable-model-invocation: true
 ---
-Resolve the target PR (given number, or the current branch's). Show its title, CI status, and review status. If CI is failing or it isn't approved, flag that clearly before offering to merge — don't hide it.
+## Context
+- PR: !`gh pr view $ARGUMENTS --json number,title,url,state,reviewDecision,mergeable -q '"#\(.number) \(.title) [\(.state)] review:\(.reviewDecision // "none") mergeable:\(.mergeable)"' 2>&1 || true`
+- Checks: !`gh pr checks $ARGUMENTS 2>&1 | head -8 || true`
+- Recent merge style: !`git log --oneline --merges -3 2>/dev/null || echo "no merge commits (squash/rebase style)"`
 
-Work out the merge method: squash, rebase, or merge commit — match the repo's existing history style if visible, otherwise ask in one line rather than guessing.
+## Task
+From Context above (run nothing else to gather data): show the PR's title, CI status, and review status. If CI is failing or it isn't approved, flag that clearly before offering to merge — don't hide it.
 
-Present two real selectable options using the option-picker tool, not plain-text yes/no:
+Work out the merge method: squash, rebase, or merge commit — match the style visible in "Recent merge style", otherwise ask in one line rather than guessing.
+
+Present two options via the option-picker tool (never plain text):
 - **Merge** — runs `gh pr merge <n> --squash` (or `--rebase`/`--merge` per the chosen method). Report confirmation and the resulting commit.
-- **Fix something first** — ends the turn immediately, nothing merged. Do not guess what's wrong, do not ask follow-ups. Wait for the next message. If instead the user types a correction directly (the picker's built-in free-text option) rather than picking this, treat that text as the fix itself — apply it, then show the corrected plan and this picker again, don't just stop.
+- **Fix something first** — ends the turn immediately, nothing merged. A typed correction = the fix: apply it, then re-show the corrected plan with this picker.
 
 Target (optional): $ARGUMENTS

@@ -6,8 +6,12 @@ model: haiku
 effort: low
 disable-model-invocation: true
 ---
-If $ARGUMENTS is a number, run `gh issue view <number>` directly. If it's text instead, search open issues by title (`gh issue list --search "<text>"`) and show the best match's full details the same way — or, if more than one is a close match, list those few candidates and ask which one instead of guessing.
+## Context
+- Issue (valid when a number was given): !`gh issue view $ARGUMENTS --json number,title,author,state,url,createdAt,labels,body,comments --jq '{n:.number,t:.title,by:.author.login,state:.state,url:.url,created:.createdAt,labels:[.labels[]?.name],body:.body,comments:[.comments[]?|{by:.author.login,text:.body}][-5:]}' 2>&1 || true`
 
-Report: title, author, status, labels, body, and recent comments — read-only, no actions offered.
+## Task
+If the "Issue" context above is valid JSON, render it — run nothing. If it shows an error (text was given instead of a number), search with `gh issue list --search "$ARGUMENTS"` and view the best match the same compact way — if several match closely, list them and ask which one instead of guessing.
+
+Report: title, author, state, labels, created date, URL, then the body quoted, then the last comments (or "none"). Read-only, no actions offered.
 
 Issue number or title text: $ARGUMENTS

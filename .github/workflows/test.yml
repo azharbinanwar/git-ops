@@ -1,0 +1,19 @@
+name: test scripts
+on:
+  push:
+    paths: ['scripts/**', 'tests.sh', '.github/workflows/test.yml']
+  pull_request:
+    paths: ['scripts/**', 'tests.sh', '.github/workflows/test.yml']
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: run script tests
+        shell: bash
+        run: bash tests.sh
