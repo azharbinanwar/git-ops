@@ -1,6 +1,6 @@
 ---
 description: Request review on the current branch's PR — pick reviewers from the collaborator list
-argument-hint: [optional: github username(s), comma-separated]
+argument-hint: "[optional: github username(s), comma-separated]"
 allowed-tools: Bash(gh pr edit:*), Bash(gh pr view:*), Bash(gh api:*)
 model: haiku
 effort: low

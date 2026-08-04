@@ -1,6 +1,6 @@
 ---
 description: View one issue's full details — by number, or search by title text
-argument-hint: [issue number, or title text to search for]
+argument-hint: "[issue number, or title text to search for]"
 allowed-tools: Bash(gh issue view:*), Bash(gh issue list:*)
 model: haiku
 effort: low

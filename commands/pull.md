@@ -1,6 +1,6 @@
 ---
 description: Safe pull — fetch + merge, offers Pull anyway / Stash first / Cancel if it could conflict
-argument-hint: [branch name, defaults to current branch]
+argument-hint: "[branch name, defaults to current branch]"
 allowed-tools: Bash(git fetch:*), Bash(git status:*), Bash(git log:*), Bash(git pull:*), Bash(git stash:*)
 model: haiku
 effort: low

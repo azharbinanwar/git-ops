@@ -1,6 +1,6 @@
 ---
 description: View one gist's full content, by ID
-argument-hint: [gist ID]
+argument-hint: "[gist ID]"
 allowed-tools: Bash(gh gist view:*)
 model: haiku
 effort: low

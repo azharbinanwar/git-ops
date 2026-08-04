@@ -1,6 +1,6 @@
 ---
 description: Clone a repo by owner/repo or URL — asks where first, defaults to the parent folder
-argument-hint: [owner/repo or URL, optional folder name]
+argument-hint: "[owner/repo or URL, optional folder name]"
 allowed-tools: Bash(git clone:*), Bash(gh repo clone:*), Bash(pwd:*)
 model: haiku
 effort: low

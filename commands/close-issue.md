@@ -1,6 +1,6 @@
 ---
 description: Close an issue with a closing comment
-argument-hint: [issue number] [reason]
+argument-hint: "[issue number] [reason]"
 allowed-tools: Bash(gh issue close:*), Bash(gh issue view:*)
 model: haiku
 effort: low

@@ -1,6 +1,6 @@
 ---
 description: Safely undo a pushed commit by creating an opposite commit — history stays intact
-argument-hint: [commit hash, or nothing for the last commit]
+argument-hint: "[commit hash, or nothing for the last commit]"
 allowed-tools: Bash(git log:*), Bash(git revert:*), Bash(git rev-parse:*)
 model: haiku
 effort: low

@@ -1,6 +1,6 @@
 ---
 description: Squash the last N commits into one — high-stakes, extra warning if pushed
-argument-hint: [N]
+argument-hint: "[N]"
 allowed-tools: Bash(git log:*), Bash(git reset:*), Bash(git commit:*), Bash(git rev-parse:*)
 model: haiku
 effort: low

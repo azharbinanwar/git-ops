@@ -1,6 +1,6 @@
 ---
 description: Pick a branch from a list and switch to it — guards your uncommitted work first
-argument-hint: [optional: branch name to switch to directly]
+argument-hint: "[optional: branch name to switch to directly]"
 allowed-tools: Bash(git branch:*), Bash(git checkout:*), Bash(git switch:*)
 model: haiku
 effort: low

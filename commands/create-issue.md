@@ -1,6 +1,6 @@
 ---
 description: Describe a bug/feature, then Create/Fix-first — actually creates the GitHub issue
-argument-hint: [bug/feature description, or nothing = current discussion]
+argument-hint: "[bug/feature description, or nothing = current discussion]"
 allowed-tools: Bash(gh issue create:*)
 model: sonnet
 disable-model-invocation: true

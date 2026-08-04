@@ -1,6 +1,6 @@
 ---
 description: List changes + message, pick Commit & Push or Fix first — commits locally then pushes
-argument-hint: [optional: anything to emphasize]
+argument-hint: "[optional: anything to emphasize]"
 allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git rev-parse:*), Bash(git branch:*), Bash(bash:*)
 model: sonnet
 disable-model-invocation: true

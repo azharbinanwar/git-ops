@@ -1,6 +1,6 @@
 ---
 description: Add labels to an issue, suggesting likely ones from context
-argument-hint: [issue number]
+argument-hint: "[issue number]"
 allowed-tools: Bash(gh issue edit:*), Bash(gh label list:*), Bash(gh issue view:*)
 model: haiku
 effort: low

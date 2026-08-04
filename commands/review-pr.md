@@ -1,6 +1,6 @@
 ---
 description: Check out a PR locally and show its diff, so you can actually read it before deciding
-argument-hint: [PR number]
+argument-hint: "[PR number]"
 allowed-tools: Bash(gh pr checkout:*), Bash(gh pr diff:*), Bash(gh pr view:*)
 model: haiku
 effort: low

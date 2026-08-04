@@ -1,6 +1,6 @@
 ---
 description: Discard uncommitted changes to one file — this loses that work, confirm first
-argument-hint: [file path]
+argument-hint: "[file path]"
 allowed-tools: Bash(git diff:*), Bash(git restore:*)
 model: haiku
 effort: low

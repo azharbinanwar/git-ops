@@ -1,6 +1,6 @@
 ---
 description: Rename the current branch, locally and on the remote
-argument-hint: [new branch name]
+argument-hint: "[new branch name]"
 allowed-tools: Bash(git branch:*), Bash(git push:*), Bash(git rev-parse:*)
 model: haiku
 effort: low

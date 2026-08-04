@@ -1,6 +1,6 @@
 ---
 description: Add labels to a PR, suggesting likely ones from context
-argument-hint: [PR number, or nothing for current branch's PR]
+argument-hint: "[PR number, or nothing for current branch's PR]"
 allowed-tools: Bash(gh pr edit:*), Bash(gh label list:*), Bash(gh pr view:*)
 model: haiku
 effort: low

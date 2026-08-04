@@ -1,6 +1,6 @@
 ---
 description: View one PR's full details — by number, or search by title text
-argument-hint: [PR number, or title text to search for]
+argument-hint: "[PR number, or title text to search for]"
 allowed-tools: Bash(gh pr view:*), Bash(gh pr list:*)
 model: haiku
 effort: low

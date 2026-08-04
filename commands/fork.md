@@ -1,6 +1,6 @@
 ---
 description: Fork a repo and clone it locally
-argument-hint: [owner/repo, or nothing for the current repo]
+argument-hint: "[owner/repo, or nothing for the current repo]"
 allowed-tools: Bash(gh repo fork:*), Bash(git remote:*)
 model: haiku
 effort: low

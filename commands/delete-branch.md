@@ -1,6 +1,6 @@
 ---
 description: Delete one branch — pick it, then pick scope: local only (default) or local + remote
-argument-hint: [optional: branch name]
+argument-hint: "[optional: branch name]"
 allowed-tools: Bash(git branch:*), Bash(git push:*), Bash(git symbolic-ref:*)
 model: haiku
 effort: low

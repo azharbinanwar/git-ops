@@ -1,6 +1,6 @@
 ---
 description: Bring one commit over from another branch
-argument-hint: [commit hash, or branch name to pick its latest commit]
+argument-hint: "[commit hash, or branch name to pick its latest commit]"
 allowed-tools: Bash(git log:*), Bash(git cherry-pick:*), Bash(git status:*)
 model: haiku
 effort: low

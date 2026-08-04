@@ -1,6 +1,6 @@
 ---
 description: Open one gist in the browser
-argument-hint: [gist id]
+argument-hint: "[gist id]"
 model: haiku
 effort: low
 allowed-tools: Bash(bash:*)

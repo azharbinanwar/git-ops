@@ -1,6 +1,6 @@
 ---
 description: Assign an issue to yourself or another developer
-argument-hint: [issue number] [username, or "me"]
+argument-hint: "[issue number] [username, or "me"]"
 allowed-tools: Bash(gh issue edit:*)
 model: haiku
 effort: low

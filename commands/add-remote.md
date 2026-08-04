@@ -1,6 +1,6 @@
 ---
 description: Connect this local folder to an existing GitHub repo — adds or updates the remote URL
-argument-hint: [owner/repo or URL]
+argument-hint: "[owner/repo or URL]"
 allowed-tools: Bash(git remote:*), Bash(git init:*)
 model: haiku
 effort: low

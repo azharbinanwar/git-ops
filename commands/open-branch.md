@@ -1,6 +1,6 @@
 ---
 description: Open a branch's file tree on GitHub — current branch if none given
-argument-hint: [optional: branch name]
+argument-hint: "[optional: branch name]"
 model: haiku
 effort: low
 allowed-tools: Bash(bash:*)

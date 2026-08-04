@@ -1,6 +1,6 @@
 ---
 description: Merge a PR — choice of squash/rebase/merge, then Create/Fix-first
-argument-hint: [PR number, or nothing for current branch's PR]
+argument-hint: "[PR number, or nothing for current branch's PR]"
 allowed-tools: Bash(gh pr view:*), Bash(gh pr merge:*), Bash(gh pr checks:*)
 model: haiku
 effort: low

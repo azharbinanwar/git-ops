@@ -1,6 +1,6 @@
 ---
 description: Create a new GitHub repo — pick name + visibility first, then a clear details-confirm picker
-argument-hint: [repo name, or nothing to get a suggestion]
+argument-hint: "[repo name, or nothing to get a suggestion]"
 allowed-tools: Bash(git remote:*), Bash(git rev-parse:*), Bash(git init:*), Bash(gh repo create:*)
 model: haiku
 effort: low

@@ -1,6 +1,6 @@
 ---
 description: Open a file's commit history on GitHub in the browser
-argument-hint: [file path]
+argument-hint: "[file path]"
 model: haiku
 effort: low
 allowed-tools: Bash(bash:*)

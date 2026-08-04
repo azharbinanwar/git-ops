@@ -1,6 +1,6 @@
 ---
 description: Approve a PR, with an optional comment
-argument-hint: [PR number, or nothing for current branch's PR] [comment]
+argument-hint: "[PR number, or nothing for current branch's PR] [comment]"
 allowed-tools: Bash(gh pr review:*), Bash(gh pr view:*)
 model: haiku
 effort: low

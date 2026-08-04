@@ -1,6 +1,6 @@
 ---
 description: Who last touched each line of a file, quickly
-argument-hint: [file path, optional line range e.g. 10-20]
+argument-hint: "[file path, optional line range e.g. 10-20]"
 allowed-tools: Bash(git blame:*)
 model: haiku
 effort: low

@@ -1,6 +1,6 @@
 ---
 description: Stash your changes with a name, so you can find it later
-argument-hint: [stash name]
+argument-hint: "[stash name]"
 model: haiku
 effort: low
 allowed-tools: Bash(bash:*)

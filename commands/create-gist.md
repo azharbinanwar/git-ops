@@ -1,6 +1,6 @@
 ---
 description: Create a GitHub gist from a file — suggests a description, then Create Secret/Public/Fix-first picker
-argument-hint: [file path]
+argument-hint: "[file path]"
 allowed-tools: Bash(gh gist create:*)
 model: haiku
 effort: low

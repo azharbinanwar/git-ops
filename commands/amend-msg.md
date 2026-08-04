@@ -1,6 +1,6 @@
 ---
 description: Change only the last commit's message — content untouched
-argument-hint: [new commit message]
+argument-hint: "[new commit message]"
 allowed-tools: Bash(git log:*), Bash(git commit:*), Bash(git rev-parse:*)
 model: haiku
 effort: low

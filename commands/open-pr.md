@@ -1,6 +1,6 @@
 ---
 description: Open a PR in the browser — by number, or the current branch's PR if none given
-argument-hint: [optional: PR number]
+argument-hint: "[optional: PR number]"
 allowed-tools: Bash(bash:*), Bash(gh pr view:*)
 model: haiku
 effort: low

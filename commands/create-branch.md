@@ -1,6 +1,6 @@
 ---
 description: Suggest a branch name from what you're about to do, create and switch to it — takes open changes along if you want
-argument-hint: [what you're about to work on]
+argument-hint: "[what you're about to work on]"
 model: haiku
 effort: low
 allowed-tools: Bash(git branch:*), Bash(git checkout:*), Bash(bash:*)

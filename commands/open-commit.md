@@ -1,6 +1,6 @@
 ---
 description: Open one commit's diff on GitHub in the browser
-argument-hint: [commit hash]
+argument-hint: "[commit hash]"
 model: haiku
 effort: low
 allowed-tools: Bash(bash:*)

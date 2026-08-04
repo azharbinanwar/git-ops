@@ -1,6 +1,6 @@
 ---
 description: Pick a stash from the list and restore it — pop (restore + remove) or apply (restore + keep)
-argument-hint: [optional: stash ref like stash@{1}, defaults to picker]
+argument-hint: "[optional: stash ref like stash@{1}, defaults to picker]"
 allowed-tools: Bash(git stash:*), Bash(git status:*)
 model: haiku
 effort: low

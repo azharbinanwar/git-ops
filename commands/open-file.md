@@ -1,6 +1,6 @@
 ---
 description: Open the current file, at the current line, on GitHub in the browser
-argument-hint: [file path, optional :line]
+argument-hint: "[file path, optional :line]"
 allowed-tools: Bash(git remote:*), Bash(git branch:*), Bash(open:*)
 model: haiku
 effort: low

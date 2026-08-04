@@ -1,6 +1,6 @@
 ---
 description: Merge one local branch into another — direct git merge, not a PR
-argument-hint: [branch to merge in]
+argument-hint: "[branch to merge in]"
 allowed-tools: Bash(git branch:*), Bash(git log:*), Bash(git merge:*), Bash(git status:*)
 model: haiku
 effort: low

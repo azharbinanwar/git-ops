@@ -1,6 +1,6 @@
 ---
 description: Unstage one specific file — undoes git add, keeps the changes
-argument-hint: [file path]
+argument-hint: "[file path]"
 model: haiku
 effort: low
 allowed-tools: Bash(bash:*)

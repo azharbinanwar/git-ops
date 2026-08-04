@@ -1,6 +1,6 @@
 ---
 description: Open one issue on GitHub in the browser
-argument-hint: [issue number]
+argument-hint: "[issue number]"
 model: haiku
 effort: low
 allowed-tools: Bash(bash:*)

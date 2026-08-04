@@ -1,6 +1,6 @@
 ---
 description: Detects the default branch, checks for a duplicate PR, then Create or Fix first — actually opens the PR
-argument-hint: [optional: target branch override]
+argument-hint: "[optional: target branch override]"
 allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git branch:*), Bash(git symbolic-ref:*), Bash(gh pr view:*), Bash(gh repo view:*), Bash(bash:*)
 model: sonnet
 disable-model-invocation: true

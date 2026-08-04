@@ -1,6 +1,6 @@
 ---
 description: Add a file/pattern to .gitignore or .git/info/exclude — untracking it too if git already tracks it
-argument-hint: [file or pattern]
+argument-hint: "[file or pattern]"
 allowed-tools: Bash(git status:*), Bash(git ls-files:*), Bash(git rm:*), Bash(find:*), Bash(ls:*)
 model: sonnet
 disable-model-invocation: true

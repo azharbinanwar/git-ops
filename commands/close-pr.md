@@ -1,6 +1,6 @@
 ---
 description: Close a PR without merging
-argument-hint: [PR number, or nothing for current branch's PR] [reason]
+argument-hint: "[PR number, or nothing for current branch's PR] [reason]"
 allowed-tools: Bash(gh pr close:*), Bash(gh pr view:*)
 model: haiku
 effort: low

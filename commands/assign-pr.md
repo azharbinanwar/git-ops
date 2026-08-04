@@ -1,6 +1,6 @@
 ---
 description: Assign a PR to yourself or another developer
-argument-hint: [PR number, or nothing for current branch's PR] [username, or "me"]
+argument-hint: "[PR number, or nothing for current branch's PR] [username, or "me"]"
 allowed-tools: Bash(gh pr edit:*), Bash(gh pr view:*)
 model: haiku
 effort: low
