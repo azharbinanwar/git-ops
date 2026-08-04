@@ -6,7 +6,7 @@ set -euo pipefail
 
 url=$(git remote get-url origin 2>/dev/null) || {
   echo "error: not a git repo or no 'origin' remote — /add-remote can set one up"
-  exit 1
+  exit 0
 }
 
 # ssh (git@host:owner/repo.git) and https both normalize to https://host/owner/repo
@@ -24,12 +24,16 @@ case "${1:-repo}" in
       def=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's#.*/##')
       [ -n "$def" ] || def=main
       cur=$(git branch --show-current 2>/dev/null)
-      [ -n "$cur" ] || { echo "error: detached HEAD — check out a branch or pass a range (a...b)"; exit 1; }
+      [ -n "$cur" ] || { echo "error: detached HEAD — check out a branch or pass a range (a...b)"; exit 0; }
       range="$def...$cur"
     fi
     out="$base/compare/$range" ;;
-  *) echo "error: unknown page '$1' (repo|prs|issues|actions|releases|compare)"; exit 1 ;;
+  *) echo "error: unknown page '$1' (repo|prs|issues|actions|releases|compare)"; exit 0 ;;
 esac
 
-open "$out" >/dev/null 2>&1 || true
+# cross-platform browser open: macOS / Linux / Windows (git-bash, WSL)
+if command -v open >/dev/null 2>&1; then open "$out" >/dev/null 2>&1 || true
+elif command -v xdg-open >/dev/null 2>&1; then xdg-open "$out" >/dev/null 2>&1 || true
+elif command -v cmd.exe >/dev/null 2>&1; then cmd.exe /c start "" "$out" >/dev/null 2>&1 || true
+fi
 echo "$out"
