@@ -27,8 +27,9 @@ disable-model-invocation: true
    - **pr-title** — the PR title, from the real diff/commits.
    - **pr-body** — a Summary section and a Test plan checklist. Never mention AI, Claude, or "generated with" anywhere.
    `pr-title` + `pr-body` together are the exact text passed to `gh pr create` — Change list and AI check are review-only.
-6. Present two options via the option-picker tool (never plain text):
+6. Present three options via the option-picker tool (never plain text):
    - **Create** — run exactly one command: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/create-pr.sh" <chosen target branch>` with `pr-title` + blank line + `pr-body` piped to stdin via heredoc. The script pushes the branch if needed and opens the PR with your logged-in gh identity, no AI attribution. Report its output verbatim — if it starts with "error:", relay it and stop, run nothing else.
+   - **Create as draft** — same single command with `--draft` appended after the target branch: marks the PR not-ready-for-review; reviewers aren't notified until you mark it ready.
    - **Fix something first** — ends the turn immediately, no PR created. A typed correction = the fix: apply it, then re-show the corrected `pr-title`/`pr-body` with this picker.
 
 Target branch override (optional): $ARGUMENTS

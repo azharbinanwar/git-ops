@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Seven new/upgraded commands for everyday branch and PR work:
+  - `/change-visibility` — flip the repo public/private with the consequences stated in the picker itself (private→public: all history becomes visible; public→private: stars/forks lost). `/repo-info` now shows current visibility.
+  - `/checkout-branch` — pick from local + remote branches (recency-sorted, pre-injected) and switch, with the uncommitted-work guard.
+  - `/view-prs` — ALL open PRs (any author) in the same 3-line format as `/pr-status`; `/pr-status` stays yours-only.
+  - `/update-branch` — merge (recommended) or rebase the default branch into your feature branch; conflicts reported and stopped, never auto-resolved.
+  - `/revert-commit` — the safe undo for pushed commits (opposite commit, history intact) — pairs with `/undo-commit`, which stays the unpushed-only tool.
+  - `/delete-branch` — two pickers: which branch (merged/unmerged state shown in the option label), then scope — Local only (recommended, reversible) or Local + remote.
+  - `/request-review` — reviewers now picked from the repo's collaborator list (multi-select) instead of requiring a typed username.
+- `/create-pr` gains a third picker option: **Create as draft** (`--draft` through the same script).
 - New offline test suite: `bash tests.sh` — 21 checks covering every bundled script (success paths, error paths, and a real push against a local bare repo, no network or GitHub needed). GitHub Actions runs it on Linux, macOS, and Windows on every push touching scripts. `.gitattributes` pins `*.sh` to LF line endings so Windows checkouts with autocrlf can't corrupt them.
 - `/review-pr` now runs in a forked subagent context (`context: fork`) — the PR's full diff stays in the fork instead of permanently occupying the main conversation; only the review summary comes back.
 - README: new "Fast and cheap by design" section with the measured numbers, and a "Judgment by model, mechanics by script" design principle.

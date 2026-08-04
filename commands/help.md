@@ -23,6 +23,10 @@ Output exactly this table, nothing else:
 | /refresh-ignore | Re-check existing ignore rules against tracked files, untrack new matches |
 | /init-gitignore | New project: detect stack, show tracked/ignored, one confirm |
 | /undo-commit | Undo last commit, keep changes staged |
+| /revert-commit | Safe undo for a pushed commit — opposite commit, history intact |
+| /update-branch | Bring the default branch's latest into yours — merge or rebase |
+| /delete-branch | Delete one branch — local only (default) or local + remote |
+| /change-visibility | Make the repo public/private — consequences shown first |
 | /merge-pr | Merge a PR — squash/rebase/merge choice |
 | /create-repo | Name + visibility, create, then separate yes/no on wiring remote — never pushes |
 | /add-remote | Connect this folder to an existing GitHub repo |
@@ -50,6 +54,8 @@ Output exactly this table, nothing else:
 |---|---|
 | /stash | Stash changes with a name |
 | /new-branch | Suggest a name, create + switch |
+| /checkout-branch | Pick a branch from a list, switch safely |
+| /view-prs | List ALL open PRs (any author) with CI/review |
 | /unstage | Undo git add on one file |
 | /pr-status | List your open PRs + CI/review status |
 | /add-label-issue | Add labels to an issue |

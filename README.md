@@ -66,6 +66,10 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/refresh-ignore` | Re-checks existing `.gitignore`/`.git/info/exclude` patterns against currently tracked files, untracks anything that now matches — no argument needed |
 | `/init-gitignore` | For a new project: detects the stack, shows tracked-vs-ignored, one confirm writes `.gitignore` and untracks matches together |
 | `/undo-commit` | Undo the last commit, keep changes staged — like GitHub Desktop's Undo |
+| `/revert-commit [hash]` | Safe undo for a pushed commit — creates an opposite commit, history intact |
+| `/update-branch` | Bring the default branch's latest into your feature branch — merge (recommended) or rebase |
+| `/delete-branch [name]` | Delete one branch — picker for which, then Local only (default) vs Local + remote |
+| `/change-visibility` | Make the repo public/private — consequences shown in the picker first |
 | `/merge-pr [number]` | Merge a PR — squash/rebase/merge choice |
 | `/create-repo [name]` | Create a new GitHub repo — pick name + visibility, confirm and create, then a separate yes/no on wiring up the local remote. Never pushes or commits on your behalf — that's always a separate step |
 | `/amend-msg <message>` | Change only the last commit's message, content untouched |
@@ -91,13 +95,15 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/help` | This whole cheat sheet, in chat |
 | `/stash <name>` | Stash your changes with a name |
 | `/new-branch <description>` | Suggest a branch name, create + switch to it |
+| `/checkout-branch [name]` | Pick a branch from a list (local + remote), switch safely |
+| `/view-prs` | List ALL open PRs (any author) with CI/review status |
 | `/unstage <file>` | Undo `git add` on one file, keeps the changes |
 | `/pr-status` | List your open PRs with CI/review status |
 | `/add-label-issue <number>` | Add labels to an issue, suggests likely ones |
 | `/add-label-pr [number]` | Add labels to a PR, suggests likely ones |
 | `/assign-issue <number> <username\|"me">` | Assign an issue to yourself or another developer |
 | `/assign-pr [number] <username\|"me">` | Assign a PR to yourself or another developer |
-| `/request-review <username>` | Request review from someone on the current PR |
+| `/request-review` | Pick reviewers from the collaborator list (multi-select) for the current PR |
 | `/workflow-status` | Check the latest GitHub Actions runs' pass/fail |
 | `/repo-info` | Quick stats: stars, open issues, open PRs, last release |
 | `/mark-draft` | Convert an existing PR back to draft status |
@@ -122,7 +128,7 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/view-gists` | List your gists |
 | `/view-gist <id>` | View one gist's full content, by ID |
 
-## Does having 61 commands cost tokens?
+## Does having 68 commands cost tokens?
 
 No. Every command sets `disable-model-invocation: true`, so none of them are loaded into Claude's context until the moment you type one — then only that command's own instructions are added, for that turn. Idle cost: ~zero. Use the handful you reach for daily, ignore the rest.
 
