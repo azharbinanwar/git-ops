@@ -106,20 +106,26 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/assign-issue <number> <username\|"me">` | Assign an issue to yourself or another developer |
 | `/assign-pr [number] <username\|"me">` | Assign a PR to yourself or another developer |
 | `/request-review` | Pick reviewers from the collaborator list (multi-select) for the current PR |
-| `/workflow-status` | Check the latest GitHub Actions runs' pass/fail |
+| `/view-actions` | Latest GitHub Actions runs' pass/fail — pairs with `/open-actions` |
 | `/repo-info` | Quick stats: stars, open issues, open PRs, last release |
 | `/mark-draft` | Convert an existing PR back to draft status |
-| `/tags` | List all tags with dates |
+| `/view-tags` | List all tags with dates — pairs with `/open-tags` |
 | `/remote-url` | Print the remote URL |
-| `/notifications` | Check unread GitHub notifications |
+| `/view-notifications` | Unread GitHub notifications — pairs with `/open-notifications` |
 | `/open-repo` | Open this repo's GitHub page in the browser |
-| `/open-pr` | Open the current branch's PR in the browser |
+| `/open-pr [n]` | Open a PR in the browser — by number, or the current branch's |
 | `/open-pull-requests` | Open the PRs list page in the browser |
 | `/open-issues` | Open the issues list page in the browser |
 | `/open-actions` | Open the GitHub Actions/CI runs page in the browser |
 | `/open-releases` | Open the releases page in the browser |
+| `/open-tags` | Open the tags page in the browser |
+| `/open-notifications` | Open your GitHub notifications in the browser |
+| `/open-issue <n>` | Open one issue in the browser |
+| `/open-gist <id>` | Open one gist in the browser |
+| `/open-commit <hash>` | Open one commit's diff in the browser |
+| `/open-file-history <path>` | Open a file's commit history in the browser |
 | `/view-releases` | List releases here in chat — latest first, badges, total count |
-| `/open-compare [a...b]` | Open a compare/diff view between two branches |
+| `/open-compare [a...b] [file]` | Compare two branches — optionally jumping straight to one file's diff |
 | `/open-file <path>` | Open the current file, at the current line, on GitHub |
 | `/view-issues` | List open issues (companion to `/pr-status`) |
 | `/view-issue <number\|text>` | View one issue's full details — by number or title search |
@@ -131,7 +137,7 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/view-gists` | List your gists |
 | `/view-gist <id>` | View one gist's full content, by ID |
 
-## Does having 68 commands cost tokens?
+## Does having 77 commands cost tokens?
 
 No. Every command sets `disable-model-invocation: true`, so none of them are loaded into Claude's context until the moment you type one — then only that command's own instructions are added, for that turn. Idle cost: ~zero. Use the handful you reach for daily, ignore the rest.
 

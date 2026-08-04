@@ -29,6 +29,12 @@ echo base > f.txt; git add -A; git commit -qm init; git push -qu origin main 2>/
 check "open: builds url, .git stripped" "/origin"                   < <(bash "$S/open.sh" repo)
 check "open: bad page errors"       "error: unknown page"           < <(bash "$S/open.sh" banana)
 check "open: no repo errors"        "error: not a git repo"         < <(cd "$TMP" && bash "$S/open.sh" repo)
+check "open: issue url"             "/issues/7"                     < <(bash "$S/open.sh" issue 7)
+check "open: commit url"            "/commit/abc123"                < <(bash "$S/open.sh" commit abc123)
+check "open: gist needs no repo"    "gist.github.com/xyz"           < <(cd "$TMP" && bash "$S/open.sh" gist xyz)
+check "open: notifications global"  "github.com/notifications"      < <(cd "$TMP" && bash "$S/open.sh" notifications)
+check "open: compare file anchor"   "#diff-"                        < <(bash "$S/open.sh" compare "a...b" f.txt)
+check "open: pr number required"    "error: PR number required"     < <(bash "$S/open.sh" pr)
 
 # untracked-scan.sh
 mkdir -p sub/build; echo x > sub/keep.txt; echo y > sub/build/junk.bin; echo z > sub/local.properties

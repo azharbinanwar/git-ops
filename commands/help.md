@@ -65,18 +65,24 @@ Output exactly this table, nothing else:
 | /assign-issue | Assign an issue to yourself or another developer |
 | /assign-pr | Assign a PR to yourself or another developer |
 | /request-review | Request review from someone |
-| /workflow-status | Latest GitHub Actions pass/fail |
+| /view-actions | Latest GitHub Actions pass/fail (pairs with /open-actions) |
 | /repo-info | Stars, open issues/PRs, last release |
 | /mark-draft | Convert an existing PR back to draft |
-| /tags | List all tags with dates |
+| /view-tags | List all tags with dates (pairs with /open-tags) |
 | /remote-url | Print the remote URL |
-| /notifications | Check unread GitHub notifications |
+| /view-notifications | Unread GitHub notifications (pairs with /open-notifications) |
 | /open-repo | Open the repo's GitHub page |
 | /open-pr | Open the current branch's PR |
 | /open-pull-requests | Open the PRs list page |
 | /open-issues | Open the issues list page |
 | /open-actions | Open the Actions/CI runs page |
 | /open-releases | Open the releases page |
+| /open-tags | Open the tags page |
+| /open-notifications | Open your notifications |
+| /open-issue | Open one issue, by number |
+| /open-gist | Open one gist, by id |
+| /open-commit | Open one commit's diff, by hash |
+| /open-file-history | Open a file's commit history |
 | /view-releases | List releases here in chat, with total count |
 | /open-compare | Open a branch compare/diff view |
 | /open-file | Open current file+line on GitHub |
