@@ -94,7 +94,7 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 |---|---|
 | `/help` | This whole cheat sheet, in chat |
 | `/stash <name>` | Stash your changes with a name |
-| `/new-branch <description>` | Suggest a branch name, create + switch to it |
+| `/create-branch <description>` | Suggest a branch name, create + switch to it |
 | `/checkout-branch [name]` | Pick a branch from a list (local + remote), switch safely |
 | `/view-prs` | List ALL open PRs (any author) with CI/review status |
 | `/unstage <file>` | Undo `git add` on one file, keeps the changes |

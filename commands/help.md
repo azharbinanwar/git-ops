@@ -53,7 +53,7 @@ Output exactly this table, nothing else:
 | Command | Use when you want |
 |---|---|
 | /stash | Stash changes with a name |
-| /new-branch | Suggest a name, create + switch |
+| /create-branch | Suggest a name, create + switch |
 | /checkout-branch | Pick a branch from a list, switch safely |
 | /view-prs | List ALL open PRs (any author) with CI/review |
 | /unstage | Undo git add on one file |
