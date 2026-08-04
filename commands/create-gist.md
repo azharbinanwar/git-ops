@@ -2,6 +2,8 @@
 description: Create a GitHub gist from a file — suggests a description, then Create Secret/Public/Fix-first picker
 argument-hint: [file path]
 allowed-tools: Bash(gh gist create:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Suggest a one-line description from the file's actual content/purpose. Never mention AI, Claude, or "generated with" in the description.

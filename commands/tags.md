@@ -2,6 +2,7 @@
 description: List all tags with dates
 allowed-tools: Bash(git tag:*)
 model: haiku
+effort: low
 disable-model-invocation: true
 ---
 ## Context

@@ -2,6 +2,8 @@
 description: Discard uncommitted changes to one file — this loses that work, confirm first
 argument-hint: [file path]
 allowed-tools: Bash(git diff:*), Bash(git restore:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Show what will be lost — a short summary of `git diff <file>`, not the whole diff if it's long.

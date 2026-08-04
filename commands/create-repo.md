@@ -2,6 +2,8 @@
 description: Create a new GitHub repo — pick name + visibility first, then a clear details-confirm picker
 argument-hint: [repo name, or nothing to get a suggestion]
 allowed-tools: Bash(git remote:*), Bash(git rev-parse:*), Bash(git init:*), Bash(gh repo create:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 If this folder already has a git remote pointing to a real repo (`git remote -v`), stop immediately and say so — this command is for creating a brand-new repo, not one that already exists. Suggest the user run this from a different folder instead.

@@ -1,6 +1,7 @@
 ---
 description: Show the git-ops cheat sheet — all commands at a glance
 model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Output exactly this table, nothing else:

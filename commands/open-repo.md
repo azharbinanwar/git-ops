@@ -1,7 +1,10 @@
 ---
-description: Open this repo's GitHub page in the browser
-allowed-tools: Bash(gh repo view:*)
+description: Open the repo's GitHub page
 model: haiku
+effort: low
+allowed-tools: Bash(bash:*)
 disable-model-invocation: true
 ---
-Run `gh repo view --web`. Report the URL too.
+- Opened: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/open.sh" repo`
+
+Report the URL above in one line. If it starts with "error:", report that line instead. Do not run any commands — the script already did the work.

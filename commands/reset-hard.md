@@ -1,6 +1,8 @@
 ---
 description: Hard-reset local branch to exactly match remote — discards all local commits and changes, high-stakes
 allowed-tools: Bash(git fetch:*), Bash(git status:*), Bash(git log:*), Bash(git reset:*), Bash(git stash:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Run `git fetch` first. Show exactly what's at stake: any uncommitted changes (`git status --short`) and any local commits not on the remote (`git log @{u}..HEAD --oneline`). Be explicit that local-only commits are lost either way — stashing only protects uncommitted changes, not commits.

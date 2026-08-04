@@ -2,6 +2,8 @@
 description: Approve a PR, with an optional comment
 argument-hint: [PR number, or nothing for current branch's PR] [comment]
 allowed-tools: Bash(gh pr review:*), Bash(gh pr view:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Resolve the target PR (given number, or the current branch's). Show its title and CI status — flag clearly if CI is still failing before offering to approve. If a comment is given, never mention AI, Claude, or "generated with" in it.

@@ -2,6 +2,8 @@
 description: Bring one commit over from another branch
 argument-hint: [commit hash, or branch name to pick its latest commit]
 allowed-tools: Bash(git log:*), Bash(git cherry-pick:*), Bash(git status:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Resolve the target commit — a given hash, or the latest commit on a given branch name. Show its message and the files it touches. Warn if the current working tree has uncommitted changes that could conflict.

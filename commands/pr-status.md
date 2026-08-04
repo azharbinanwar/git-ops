@@ -2,6 +2,7 @@
 description: List your open PRs with CI/review status at a glance
 allowed-tools: Bash(gh pr status:*)
 model: haiku
+effort: low
 disable-model-invocation: true
 ---
 ## Context

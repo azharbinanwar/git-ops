@@ -1,6 +1,8 @@
 ---
 description: Undo the last commit, keep changes staged — like GitHub Desktop's Undo button
 allowed-tools: Bash(git log:*), Bash(git reset:*), Bash(git rev-parse:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Show the last commit (`git log -1 --oneline`). Check if it's already pushed (compare HEAD to its upstream via `git rev-parse @{u}` if one is set). If it is, warn clearly: undoing it will put your local branch behind the remote — syncing back up would need a force-push, which rewrites shared history.

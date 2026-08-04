@@ -1,10 +1,11 @@
 ---
 description: Open a compare/diff view between two branches on GitHub
 argument-hint: [branch1...branch2, defaults to default-branch...current]
-allowed-tools: Bash(git remote:*), Bash(git branch:*), Bash(git symbolic-ref:*), Bash(open:*)
 model: haiku
+effort: low
+allowed-tools: Bash(bash:*)
 disable-model-invocation: true
 ---
-Get the owner/repo from `git remote get-url origin`. Use $ARGUMENTS as the branch range if given (format "branch1...branch2"), otherwise default to "`<default branch>`...`<current branch>`" (detect the default via `git symbolic-ref refs/remotes/origin/HEAD`, fall back to `main`). Build `https://github.com/<owner>/<repo>/compare/<range>` and open it with `open <url>`. Report the URL too.
+- Opened: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/open.sh" compare $ARGUMENTS`
 
-Branches (optional, "a...b"): $ARGUMENTS
+Report the URL above in one line. If it starts with "error:", report that line instead. Do not run any commands — the script already did the work.

@@ -2,6 +2,7 @@
 description: Print the remote URL (https or ssh)
 allowed-tools: Bash(git remote:*)
 model: haiku
+effort: low
 disable-model-invocation: true
 ---
 ## Context

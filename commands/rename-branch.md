@@ -2,6 +2,8 @@
 description: Rename the current branch, locally and on the remote
 argument-hint: [new branch name]
 allowed-tools: Bash(git branch:*), Bash(git push:*), Bash(git rev-parse:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Show the current branch name. If $ARGUMENTS is empty, ask for the new name instead of guessing. Check if the current name is already pushed (has an upstream) — if so, note that the remote branch will need updating too (delete old, push new), and any open PR from this branch will need its head ref to catch up (GitHub usually handles this automatically once the new branch is pushed and old one deleted, but flag it).

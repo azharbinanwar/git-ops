@@ -6,7 +6,7 @@ disable-model-invocation: true
 ---
 ## Context
 - Status: !`git status --short`
-- Changes: !`git diff HEAD --stat 2>/dev/null || git diff --cached --stat 2>/dev/null || true`
+- Changes: !`git diff HEAD --shortstat 2>/dev/null || git diff --cached --shortstat 2>/dev/null || true`
 - Recent style: !`git log --oneline -10 2>/dev/null || true`
 
 ## Task

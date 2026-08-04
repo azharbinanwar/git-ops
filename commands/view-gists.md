@@ -2,6 +2,7 @@
 description: List your gists
 allowed-tools: Bash(gh gist list:*)
 model: haiku
+effort: low
 disable-model-invocation: true
 ---
 ## Context

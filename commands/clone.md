@@ -3,6 +3,7 @@ description: Clone a repo by owner/repo or URL — asks where first, defaults to
 argument-hint: [owner/repo or URL, optional folder name]
 allowed-tools: Bash(git clone:*), Bash(gh repo clone:*), Bash(pwd:*)
 model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Work out the folder the clone will create: the given folder name, or the repo's own name if none given. Run `pwd` to find the current directory — its parent (one level up) is the recommended destination root. Never clone into the current directory itself: it's usually an existing project, and nesting one repo inside another is almost never wanted.

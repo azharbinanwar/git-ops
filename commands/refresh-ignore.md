@@ -1,6 +1,7 @@
 ---
 description: Re-check all existing .gitignore / .git/info/exclude patterns against currently tracked files, untrack anything that now matches
 allowed-tools: Bash(git ls-files:*), Bash(git rm:*), Bash(cat:*)
+model: sonnet
 disable-model-invocation: true
 ---
 No argument needed — this re-syncs against whatever ignore rules already exist, it doesn't add new patterns.

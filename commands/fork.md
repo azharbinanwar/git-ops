@@ -2,6 +2,8 @@
 description: Fork a repo and clone it locally
 argument-hint: [owner/repo, or nothing for the current repo]
 allowed-tools: Bash(gh repo fork:*), Bash(git remote:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Resolve the target repo — given `owner/repo`, or the current repo's remote if none given. Show what will happen: fork it under your account, and clone it into a new folder named after the repo (or add it as a remote if you're already inside a clone of the original).

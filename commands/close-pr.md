@@ -2,6 +2,8 @@
 description: Close a PR without merging
 argument-hint: [PR number, or nothing for current branch's PR] [reason]
 allowed-tools: Bash(gh pr close:*), Bash(gh pr view:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Resolve the target PR (given number, or the current branch's). Show its title. If a reason/comment is given, never mention AI, Claude, or "generated with" in it.

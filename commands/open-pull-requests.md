@@ -1,7 +1,10 @@
 ---
-description: Open the PRs list page for this repo on GitHub in the browser
-allowed-tools: Bash(git remote:*), Bash(open:*)
+description: Open the PRs list page on GitHub
 model: haiku
+effort: low
+allowed-tools: Bash(bash:*)
 disable-model-invocation: true
 ---
-Get the owner/repo from `git remote get-url origin`, build `https://github.com/<owner>/<repo>/pulls`, open it with `open <url>`. Report the URL too.
+- Opened: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/open.sh" prs`
+
+Report the URL above in one line. If it starts with "error:", report that line instead. Do not run any commands — the script already did the work.

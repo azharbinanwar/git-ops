@@ -2,6 +2,7 @@
 description: Check the latest GitHub Actions runs' pass/fail status
 allowed-tools: Bash(gh run list:*)
 model: haiku
+effort: low
 disable-model-invocation: true
 ---
 ## Context

@@ -2,6 +2,8 @@
 description: Close an issue with a closing comment
 argument-hint: [issue number] [reason]
 allowed-tools: Bash(gh issue close:*), Bash(gh issue view:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Confirm the issue exists and show its title. If a reason/comment is given, never mention AI, Claude, or "generated with" in it.

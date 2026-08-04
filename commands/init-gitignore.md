@@ -1,6 +1,7 @@
 ---
 description: Set up .gitignore for a new project — detects the stack, shows what's tracked vs ignored, one confirm applies both
 allowed-tools: Bash(git ls-files:*), Bash(git rm:*), Bash(ls:*), Bash(find:*)
+model: sonnet
 disable-model-invocation: true
 ---
 Detect the project's stack from what's actually present (`package.json` → Node, `Cargo.toml` → Rust, `*.xcodeproj` → Xcode, `build.gradle`/`build.gradle.kts` → Kotlin/Android, `requirements.txt`/`pyproject.toml` → Python, etc. — multiple can apply at once).

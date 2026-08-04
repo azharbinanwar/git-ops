@@ -2,6 +2,7 @@
 description: Check unread GitHub notifications
 allowed-tools: Bash(gh api:*)
 model: haiku
+effort: low
 disable-model-invocation: true
 ---
 ## Context

@@ -2,6 +2,8 @@
 description: Merge a PR — choice of squash/rebase/merge, then Create/Fix-first
 argument-hint: [PR number, or nothing for current branch's PR]
 allowed-tools: Bash(gh pr view:*), Bash(gh pr merge:*), Bash(gh pr checks:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Resolve the target PR (given number, or the current branch's). Show its title, CI status, and review status. If CI is failing or it isn't approved, flag that clearly before offering to merge — don't hide it.

@@ -2,6 +2,7 @@
 description: Quick repo stats — stars, open issues, open PRs, last release
 allowed-tools: Bash(gh repo view:*), Bash(gh release list:*)
 model: haiku
+effort: low
 disable-model-invocation: true
 ---
 ## Context

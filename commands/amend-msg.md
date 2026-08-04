@@ -2,6 +2,8 @@
 description: Change only the last commit's message — content untouched
 argument-hint: [new commit message]
 allowed-tools: Bash(git log:*), Bash(git commit:*), Bash(git rev-parse:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
 Show the last commit's current message. Check if it's already pushed (compare to upstream) — if so, warn that amending rewrites the commit hash and needs a force-push to sync, which rewrites shared history.

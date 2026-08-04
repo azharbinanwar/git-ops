@@ -2,6 +2,7 @@
 description: List open issues (companion to /pr-status)
 allowed-tools: Bash(gh issue list:*)
 model: haiku
+effort: low
 disable-model-invocation: true
 ---
 ## Context
