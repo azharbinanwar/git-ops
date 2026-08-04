@@ -118,6 +118,7 @@ Then `/reload-plugins`. New versions are listed in [CHANGELOG.md](CHANGELOG.md).
 | `/open-issues` | Open the issues list page in the browser |
 | `/open-actions` | Open the GitHub Actions/CI runs page in the browser |
 | `/open-releases` | Open the releases page in the browser |
+| `/view-releases` | List releases here in chat — latest first, badges, total count |
 | `/open-compare [a...b]` | Open a compare/diff view between two branches |
 | `/open-file <path>` | Open the current file, at the current line, on GitHub |
 | `/view-issues` | List open issues (companion to `/pr-status`) |

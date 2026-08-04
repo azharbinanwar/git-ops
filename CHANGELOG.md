@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- New `/view-releases` — releases listed in chat (badges for LATEST/pre-release/draft, `Showing N of total`), completing the view-vs-open symmetry PRs and issues already had. `/repo-info` redesigned as a labeled card: visibility (with the change hint inline), default branch, community and activity rows including last push age, URL, and a next-actions footer.
 - New `/view-stashes` (list with names + age) and `/pop-stash` (picker: which stash, then Pop or Apply — apply keeps the stash as backup; a failed pop never drops the stash). Completes the stash lifecycle that `/stash` and `/create-branch`'s stash option start.
 - `/create-branch` (renamed from `/new-branch`): asks for a description when none given, and open changes now offer a picker — take them to the new branch (recommended; `git checkout -b` carries work safely, the old hard-stop warning was simply wrong), stash first, or cancel.
 - Renamed `/new-branch` → `/create-branch` — matches the `/create-*` family (`/create-pr`, `/create-repo`, `/create-gist`, …), finishing the rename started in 1.1.0.

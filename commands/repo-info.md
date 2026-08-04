@@ -20,5 +20,5 @@ Activity:    <issues> open issues · <PRs> open PRs · last push <relative age f
 Release:     <tag + date, or "none yet">
 URL:         <url>
 
-→ /view-prs · /view-issues · /open-releases · /open-repo
+→ /view-prs · /view-issues · /view-releases · /open-repo
 ```

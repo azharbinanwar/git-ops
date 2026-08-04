@@ -77,6 +77,7 @@ Output exactly this table, nothing else:
 | /open-issues | Open the issues list page |
 | /open-actions | Open the Actions/CI runs page |
 | /open-releases | Open the releases page |
+| /view-releases | List releases here in chat, with total count |
 | /open-compare | Open a branch compare/diff view |
 | /open-file | Open current file+line on GitHub |
 | /view-issues | List open issues |
