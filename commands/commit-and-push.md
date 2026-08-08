@@ -1,7 +1,7 @@
 ---
 description: List changes + message, pick Commit & Push or Fix first — commits locally then pushes
 argument-hint: "[optional: anything to emphasize]"
-allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git rev-parse:*), Bash(git branch:*), Bash(bash:*), Bash(printf:*)
+allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git rev-parse:*), Bash(git branch:*), Bash(git rm:*), Bash(bash:*), Bash(printf:*)
 model: sonnet
 disable-model-invocation: true
 ---
@@ -24,9 +24,14 @@ disable-model-invocation: true
    - **commit-title** — the subject line, ≤72 chars, matching the repo's existing message style.
    - **commit-body** — the rest of the message, only if the diff genuinely needs one — plain `-` bullets, one change per bullet, no numbering, no paragraphs, ≤6 bullets unless the diff truly demands more. Never include AI attribution of any kind (no "Co-Authored-By: Claude", no "Generated with" lines).
    `commit-title` + `commit-body` together are the exact text that goes into `git commit` — Change list and AI check are review-only, never part of the commit.
-3. Present the options via the option-picker tool (never plain text). Picker question and option labels must be plain short text — never objects, JSON, or templates — and each option's description must state in words exactly what will run:
-   - **Exclude flagged & push (Recommended)** — only offered when the AI check flagged at least one *untracked* file. First run exactly `printf '%s\n' <each flagged path, one per printf arg> >> .git/info/exclude`, then the same script call as Commit & Push below — the excluded files are untracked, so staging never sees them, this commit and every future one. If a flagged file is *tracked* (listed as Modified/Deleted), exclusion can't skip it — say so in one line and leave this option out for it.
-   - **Commit & Push** — run exactly one command: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/commit-and-push.sh"` with `commit-title` + blank line + `commit-body` piped to stdin via heredoc. The script stages everything — including any flagged files — commits, and pushes (or `-u origin <branch>` if no upstream), and refuses `--force`/`--no-verify` by construction. Report its output verbatim — if it starts with "error:" or contains "PUSH FAILED", that is the full story: relay it and stop, run nothing else.
+3. Present the options via the option-picker tool (never plain text). Picker question and option labels must be plain short text — never objects, JSON, or templates — and each option's description must state in words exactly what will run, naming the exact files it excludes. Build the option list from what steps above flagged — "junk" = AI check rows, "secret" = Secrets check rows (`[secret]` and `[review]` alike):
+   - Nothing flagged → **Commit & Push** / **Fix something first** only.
+   - Junk only → **Exclude junk & push** / **Commit & Push anyway** / **Fix something first**.
+   - Secret only → **Exclude secret & push** / **Commit & Push anyway** / **Fix something first**.
+   - Both → **Exclude junk + secret & push** / **Exclude junk only & push** / **Exclude secret only & push** / **Commit & Push anyway** (Fix first still works: the picker's built-in typed answer = a correction).
+   How each option runs:
+   - **Exclude … & push** — first, for the named files: untracked ones get `printf '%s\n' <each path, one per printf arg> >> .git/info/exclude`; tracked ones get `git rm --cached -- <path>` *and* the same printf — the description must say the commit will record that file's removal from the repo (it stays on disk, and old contents stay in past history — a tracked `[secret]` is already leaked, rotate it). Then run the same script call as Commit & Push.
+   - **Commit & Push** (or **… anyway**) — run exactly one command: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/commit-and-push.sh"` with `commit-title` + blank line + `commit-body` piped to stdin via heredoc. The script stages everything — including any flagged files — commits, and pushes (or `-u origin <branch>` if no upstream), and refuses `--force`/`--no-verify` by construction. Report its output verbatim — if it starts with "error:" or contains "PUSH FAILED", that is the full story: relay it and stop, run nothing else.
    - **Fix something first** — ends the turn immediately, nothing committed, nothing pushed. A typed correction = the fix: apply it, then re-show the corrected `commit-title`/`commit-body` with this picker.
 
 Emphasis (optional): $ARGUMENTS
