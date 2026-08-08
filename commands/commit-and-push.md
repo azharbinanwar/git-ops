@@ -25,6 +25,7 @@ disable-model-invocation: true
    - **commit-body** — the rest of the message, only if the diff genuinely needs one — plain `-` bullets, one change per bullet, no numbering, no paragraphs, ≤6 bullets unless the diff truly demands more. Never include AI attribution of any kind (no "Co-Authored-By: Claude", no "Generated with" lines).
    `commit-title` + `commit-body` together are the exact text that goes into `git commit` — Change list and AI check are review-only, never part of the commit.
 3. Present the options via the option-picker tool (never plain text). Picker question and option labels must be plain short text — never objects, JSON, or templates — and each option's description must state in words exactly what will run, naming the exact files it excludes. Build the option list from what steps above flagged — "junk" = AI check rows, "secret" = Secrets check rows (`[secret]` and `[review]` alike):
+   The order below is fixed — exclude options always come first, whatever was flagged and whether the files are tracked or not. Never reorder by your own judgement:
    - Nothing flagged → **Commit & Push** / **Fix something first** only.
    - Junk only → **Exclude junk & push** / **Commit & Push anyway** / **Fix something first**.
    - Secret only → **Exclude secret & push** / **Commit & Push anyway** / **Fix something first**.
