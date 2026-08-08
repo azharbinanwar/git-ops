@@ -17,6 +17,6 @@ Output exactly these five labeled sections, in this order, nothing else:
 - **AI check** — one line per flagged file, "better excluded (add to .git/info/exclude): path" for anything that reads like an AI-tracking artifact (scratch notes, `PLAN.md`/`NOTES.md`/`SUMMARY.md`-style files, anything not clearly part of the real source tree), and every "suspicious:" entry from "Untracked folders" above (build output, IDE metadata, keys/secrets riding inside a folder). If none, say "None flagged."
 - **Secrets check** — reproduce the "Secrets" context block above exactly as printed (it is pre-aligned); if it says none found, output `Secrets check: none found.`
 - **short-commit-message** — one line, subject only, ≤72 chars, matching the repo's existing message style.
-- **detailed-commit-message** — subject + body explaining what changed and why, only as long as the diff actually warrants.
+- **detailed-commit-message** — subject + body, only as long as the diff actually warrants. Body as plain `-` bullets, one change per bullet, no numbering, no paragraphs, ≤6 bullets unless the diff truly demands more.
 
 Never include AI attribution of any kind (no "Co-Authored-By: Claude", no "Generated with" lines) in either message. Do NOT run git commit — this command only ever outputs text.
