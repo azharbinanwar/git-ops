@@ -83,6 +83,20 @@ git remote set-url origin "$TMP/origin.git"
 # create-pr.sh / create-release.sh — offline error paths only (gh needs network)
 check "create-pr: no base errors"   "error: no target branch"       < <(bash "$S/create-pr.sh" < /dev/null)
 check "create-pr: empty title"      "error: empty PR title"         < <(printf '\n\n\n' | bash "$S/create-pr.sh" main)
+check "create-pr: missing file"     "error: PR text file not found" < <(bash "$S/create-pr.sh" main "$TMP/nope.md")
+printf '\n\nbody\n' > "$TMP/pr-empty.md"
+check "create-pr: empty title file" "error: empty PR title"         < <(bash "$S/create-pr.sh" main "$TMP/pr-empty.md")
+
+# change-list.sh
+git checkout -qb cl-test
+mkdir -p biglist; for i in $(seq 1 35); do echo x > "biglist/f$i.txt"; done
+git add -A; git commit -qm "cl big"
+check "change-list: groups big sets" "biglist/ (35 files)"          < <(bash "$S/change-list.sh" "HEAD~1...HEAD")
+check "change-list: total noted"     "files total"                  < <(bash "$S/change-list.sh" "HEAD~1...HEAD")
+git rm -q biglist/f1.txt; echo y >> f.txt; git add -A; git commit -qm "cl small"
+check "change-list: deleted line"    "Deleted:  biglist/f1.txt"     < <(bash "$S/change-list.sh" "HEAD~1...HEAD")
+check "change-list: modified line"   "Modified: f.txt"              < <(bash "$S/change-list.sh" "HEAD~1...HEAD")
+check "change-list: empty range"     "(no changes)"                 < <(bash "$S/change-list.sh" "HEAD...HEAD")
 check "create-release: no tag"      "error: no version tag"         < <(bash "$S/create-release.sh" < /dev/null)
 check "create-release: empty title" "error: empty release title"    < <(printf '\n\n\n' | bash "$S/create-release.sh" v0)
 
