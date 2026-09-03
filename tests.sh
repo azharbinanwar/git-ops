@@ -101,16 +101,16 @@ check "create-release: no tag"      "error: no version tag"         < <(bash "$S
 check "create-release: empty title" "error: empty release title"    < <(printf '\n\n\n' | bash "$S/create-release.sh" v0)
 
 # suggest.sh
-check "suggest: related lines"      "/create-pr — turn this branch into a PR" < <(bash "$S/suggest.sh" commit-and-push)
-check "suggest: related header"     "Related:"                      < <(bash "$S/suggest.sh" stash)
-check "suggest: tip on big cmds"    "Tip:"                          < <(bash "$S/suggest.sh" commit-only)
+check "suggest: related lines"      '/git-ops:create-pr` — turn this branch into a PR' < <(bash "$S/suggest.sh" commit-and-push)
+check "suggest: related header"     "**Related**"                      < <(bash "$S/suggest.sh" stash)
+check "suggest: tip on big cmds"    "**Tip**"                          < <(bash "$S/suggest.sh" commit-only)
 check "suggest: unknown cmd empty"  "EMPTY"                         < <(out=$(bash "$S/suggest.sh" open-repo); [ -z "$out" ] && echo EMPTY)
 git stash push -qm "suggest test" >/dev/null 2>&1 || true
 if git stash list | grep -q .; then
-  check "suggest: stash trigger"    "/pop-stash — you have 1 stash waiting" < <(bash "$S/suggest.sh" commit-and-push)
+  check "suggest: stash trigger"    '/git-ops:pop-stash` — you have 1 stash waiting' < <(bash "$S/suggest.sh" commit-and-push)
   git stash drop -q >/dev/null 2>&1 || true
 fi
-check "suggest: no tip on small"    "EMPTY"                         < <(out=$(bash "$S/suggest.sh" stash | grep "Tip:" || true); [ -z "$out" ] && echo EMPTY)
+check "suggest: no tip on small"    "EMPTY"                         < <(out=$(bash "$S/suggest.sh" stash | grep -F '**Tip**' || true); [ -z "$out" ] && echo EMPTY)
 echo
 echo "passed: $PASS, failed: $FAIL"
 [ "$FAIL" = 0 ]
