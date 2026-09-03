@@ -7,5 +7,8 @@ allowed-tools: Bash(bash:*)
 disable-model-invocation: true
 ---
 - Result: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/stash.sh" $ARGUMENTS`
+- Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" stash`
 
 Report the result above in one line. If it says a name is required, suggest one short kebab-case name derived from the listed changed files and ask in one line — e.g. `Name for the stash? (suggestion: readme-tweaks)` — then wait; stash nothing until the user answers. When they answer (or their message reads as a request rather than a name, like "can you stash for me"), use the suggestion or their actual words as a proper name — never a conversational sentence. For any other "error:" line, report it as is. Do not run any commands yourself except, after the user confirms a name, exactly: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/stash.sh" <name>`.
+
+After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim (omit it entirely if empty, and omit it when the action failed or was cancelled).

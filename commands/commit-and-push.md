@@ -14,6 +14,7 @@ disable-model-invocation: true
 - Current branch: !`git branch --show-current 2>/dev/null || true`
 - Upstream: !`git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo "none set"`
 - Last commit: !`git log -1 --format="%h %s (%cr)" 2>/dev/null || true`
+- Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" commit-and-push`
 
 ## Task
 1. If "Status"/"Changes" above show no open changes, report the "Last commit" above (hash, message, how long ago) and whether it's already pushed (compare to Upstream). Say there's nothing new to commit. Stop — do not write a message or show the picker.
@@ -36,3 +37,5 @@ disable-model-invocation: true
    - **Fix something first** — ends the turn immediately, nothing committed, nothing pushed. A typed correction = the fix: apply it, then re-show the corrected `commit-title`/`commit-body` with this picker.
 
 Emphasis (optional): $ARGUMENTS
+
+After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim (omit it entirely if empty, and omit it when the action failed or was cancelled).

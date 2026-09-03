@@ -15,6 +15,7 @@ disable-model-invocation: true
 - Secrets: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/secrets-scan.sh"`
 - Last commit on this branch: !`git log -1 --format="%h %s (%cr)" 2>/dev/null || true`
 - Open PR for this branch: !`gh pr view --json url -q .url 2>/dev/null || echo "none"`
+- Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" create-pr`
 
 ## Task
 1. If "Current branch" above equals the detected default branch (no separate feature branch to PR from), report the "Last commit" and say there's nothing to open a PR for. Stop.
@@ -32,3 +33,5 @@ disable-model-invocation: true
    - **Fix something first** — ends the turn immediately, no PR created. A typed correction = the fix: apply it to `.git/PR_EDITMSG` with the Edit tool (only the changed lines, never a full rewrite), then re-show this picker.
 
 Target branch override (optional): $ARGUMENTS
+
+After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim (omit it entirely if empty, and omit it when the action failed or was cancelled).

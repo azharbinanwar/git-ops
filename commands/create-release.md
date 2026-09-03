@@ -11,6 +11,7 @@ disable-model-invocation: true
 - Latest tag: !`git describe --tags --abbrev=0 2>/dev/null || echo "none yet"`
 - Recent commits: !`git log --oneline -15 2>/dev/null || true`
 - Existing tags: !`git tag --sort=-creatordate 2>/dev/null | head -5 || true`
+- Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" create-release`
 
 ## Task
 1. If "GitHub auth" above shows "not logged in", or "Remote" shows "none", report that exact problem in one line and stop — do not attempt anything else.
@@ -30,3 +31,5 @@ disable-model-invocation: true
    - **Fix something first** — ends the turn immediately, no tag or release created. A typed correction = the fix: apply it, then re-show the corrected `release-title`/`release-notes` with this picker.
 
 Version override (optional): $ARGUMENTS
+
+After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim (omit it entirely if empty, and omit it when the action failed or was cancelled).

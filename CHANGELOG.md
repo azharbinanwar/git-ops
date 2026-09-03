@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Suggestion footers: 10 action commands end with a short Related/Tip block
+  - `scripts/suggest.sh` — pre-written related pairs per command, state-triggered tips (waiting stashes, behind origin, merged branches), rotating discovery fallback with counter in `.git/`
+  - Big flows (commit-and-push, commit-only, create-pr, merge-pr, create-release) get Related + Tip; small ones (create-branch, stash, pull-rebase, squash, update-branch) get Related only; `/open-*`/`/view-*` stay footer-free
+
 ## 1.5.0 — 2026-08-14
 
 - `/create-pr` slimmed for big branches (a real 179-file PR measured ~10k tokens; these cut the three biggest costs):

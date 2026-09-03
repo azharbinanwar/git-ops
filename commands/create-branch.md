@@ -9,6 +9,7 @@ disable-model-invocation: true
 ## Context
 - Open changes: !`git status --porcelain 2>/dev/null | wc -l`
 - Recent branches: !`git branch --sort=-committerdate --format='%(refname:short)' 2>/dev/null | head -8`
+- Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" create-branch`
 
 ## Task
 1. If no description was given below, ask in one line what the branch is for (that's where the name comes from) and wait — never invent a name from nothing.
@@ -22,3 +23,5 @@ disable-model-invocation: true
 Report the branch you're now on (and the stash reference if one was made). The Context above is the only data needed — run nothing else to gather.
 
 What you're about to work on: $ARGUMENTS
+
+After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim (omit it entirely if empty, and omit it when the action failed or was cancelled).

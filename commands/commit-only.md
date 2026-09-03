@@ -12,6 +12,7 @@ disable-model-invocation: true
 - Secrets: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/secrets-scan.sh"`
 - Recent style: !`git log --oneline -10 2>/dev/null || true`
 - Last commit: !`git log -1 --format="%h %s (%cr)" 2>/dev/null || true`
+- Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" commit-only`
 
 ## Task
 1. If "Status"/"Changes" above show no open changes, report the "Last commit" above (hash, message, how long ago) and say there's nothing new to commit. Stop — do not write a message or show the picker.
@@ -34,3 +35,5 @@ disable-model-invocation: true
    - **Fix something first** — ends the turn immediately, nothing committed. A typed correction = the fix: apply it, then re-show the corrected `commit-title`/`commit-body` with this picker.
 
 Emphasis (optional): $ARGUMENTS
+
+After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim (omit it entirely if empty, and omit it when the action failed or was cancelled).
