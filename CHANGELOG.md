@@ -2,9 +2,13 @@
 
 ## Unreleased
 
-- Suggestion footers: 10 action commands end with a short Related/Tip block
-  - `scripts/suggest.sh` — pre-written related pairs per command, state-triggered tips (waiting stashes, behind origin, merged branches), rotating discovery fallback with counter in `.git/`
-  - Big flows (commit-and-push, commit-only, create-pr, merge-pr, create-release) get Related + Tip; small ones (create-branch, stash, pull-rebase, squash, update-branch) get Related only; `/open-*`/`/view-*` stay footer-free
+- Suggestion footers: 10 action commands end with a single **Tips** block
+  - `scripts/suggest.sh` — 2 pre-written related lines per command + 2 tips: state-triggered (waiting stashes, behind origin, merged branches) with a rotating discovery fallback, counter in `.git/`
+  - Big flows (commit-and-push, commit-only, create-pr, merge-pr, create-release) get 4 lines; small ones (create-branch, stash, pull-rebase, squash, update-branch) get their 2 related only; `/open-*`/`/view-*` stay footer-free
+  - Lines render styled: markdown bold header, backticked `/git-ops:`-namespaced commands
+- Commit message discipline in commit-and-push / commit-only (verified headless in the test repo)
+  - Hard rule: every path named in the message must appear in the Change list — excluded/ignored/unchanged files never appear, even when an added file's own text references them
+  - A typed picker correction edits the commit-title/commit-body text only; no commands run in response unless it names files to add or exclude
 
 ## 1.5.0 — 2026-08-14
 
