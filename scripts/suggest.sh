@@ -53,33 +53,33 @@ tip_enabled() {
 }
 
 rel="$(related "$cmd" 2>/dev/null)" || exit 0
-printf '**Related**\n'
+printf '**Tips**\n'
 printf '%s\n' "$rel" | sed 's/^/  /'
 
 tip_enabled "$cmd" || exit 0
 git_dir="$(git rev-parse --git-dir 2>/dev/null)" || exit 0
 
-tip=""
-# state triggers, first hit wins; skip a trigger whose command is already in Related
+tips=()
+# state triggers in priority order; skip one whose command is already in Related
 n=$(git stash list 2>/dev/null | wc -l | tr -d ' ')
 if [ "$n" -gt 0 ] && ! printf '%s' "$rel" | grep -q "pop-stash"; then
-  [ "$n" = 1 ] && tip="${G}pop-stash${E} — you have 1 stash waiting" || tip="${G}pop-stash${E} — you have $n stashes waiting"
+  [ "$n" = 1 ] && tips+=("${G}pop-stash${E} — you have 1 stash waiting") || tips+=("${G}pop-stash${E} — you have $n stashes waiting")
 fi
-if [ -z "$tip" ] && git rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1; then
+if [ "${#tips[@]}" -lt 2 ] && git rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1; then
   n=$(git rev-list --count 'HEAD..@{u}' 2>/dev/null || echo 0)
   if [ "$n" -gt 0 ] && ! printf '%s' "$rel" | grep -q "pull-rebase"; then
-    tip="${G}pull-rebase${E} — origin is $n commit(s) ahead of you"
+    tips+=("${G}pull-rebase${E} — origin is $n commit(s) ahead of you")
   fi
 fi
-if [ -z "$tip" ]; then
+if [ "${#tips[@]}" -lt 2 ]; then
   n=$(git branch --merged 2>/dev/null | grep -vcE '^\*|^\s*(main|master|develop)$' || true)
   if [ "$n" -gt 0 ] && ! printf '%s' "$rel" | grep -q "clean-branches"; then
-    tip="${G}clean-branches${E} — $n merged branch(es) can be deleted"
+    tips+=("${G}clean-branches${E} — $n merged branch(es) can be deleted")
   fi
 fi
 
-# rotation fallback: cycle through discovery lines, counter kept in .git
-if [ -z "$tip" ]; then
+# rotation fallback fills up to 2 total; counter kept in .git
+if [ "${#tips[@]}" -lt 2 ]; then
   lines=(
     "${G}blame${E} — who last touched each line of a file"
     "${G}squash${E} — squash the last N commits into one"
@@ -96,8 +96,11 @@ if [ -z "$tip" ]; then
   )
   f="$git_dir/git-ops-suggest-idx"
   i=$(cat "$f" 2>/dev/null | tr -dc '0-9' || true); i="${i:-0}"
-  tip="${lines[$(( i % ${#lines[@]} ))]}"
-  echo $(( (i + 1) % ${#lines[@]} )) > "$f" 2>/dev/null || true
+  while [ "${#tips[@]}" -lt 2 ]; do
+    tips+=("${lines[$(( i % ${#lines[@]} ))]}")
+    i=$(( (i + 1) % ${#lines[@]} ))
+  done
+  echo "$i" > "$f" 2>/dev/null || true
 fi
 
-printf '**Tip**\n  %s\n' "$tip"
+printf '  %s\n' "${tips[@]}"
