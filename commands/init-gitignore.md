@@ -1,9 +1,13 @@
 ---
 description: Set up .gitignore for a new project — detects the stack, shows what's tracked vs ignored, one confirm applies both
-allowed-tools: Bash(git ls-files:*), Bash(git rm:*), Bash(ls:*), Bash(find:*)
+allowed-tools: Bash(bash:*), Bash(git ls-files:*), Bash(git rm:*), Bash(ls:*), Bash(find:*)
 model: sonnet
 disable-model-invocation: true
 ---
+
+## Context
+- Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" init-gitignore`
+
 Detect the project's stack from what's actually present (`package.json` → Node, `Cargo.toml` → Rust, `*.xcodeproj` → Xcode, `build.gradle`/`build.gradle.kts` → Kotlin/Android, `requirements.txt`/`pyproject.toml` → Python, etc. — multiple can apply at once).
 
 Generate the appropriate `.gitignore` patterns for the detected stack(s), plus universal ones (`.DS_Store`, `.idea/`, etc. as applicable).
@@ -13,5 +17,7 @@ Output two labeled sections:
 - **Currently tracked that matches these patterns** — run `git ls-files` and check each entry against the patterns; list the ones that would need untracking (with file count/size for noisy matches like build folders, not every single file). If nothing tracked matches, say "None — clean already."
 
 Present two options via the option-picker tool (never plain text):
-- **Apply** — writes `.gitignore` with the listed patterns, then runs `git rm --cached` on every currently-tracked match in the same step (files stay on disk, just untracked). This is one action, not two — the user should never need to run this again separately for the same setup. Report what was written and what was untracked. Remind them a commit is needed afterward to finalize the untracking (or that `/commit-only`/`/commit-and-push` is the natural next step).
+- **Apply** — writes `.gitignore` with the listed patterns, then runs `git rm --cached` on every currently-tracked match in the same step (files stay on disk, just untracked). This is one action, not two — the user should never need to run this again separately for the same setup. Report what was written and what was untracked. Remind them a commit is needed afterward to finalize the untracking.
 - **Fix something first** — ends the turn immediately, nothing written, nothing untracked. Wait for the next message. If instead the user types a correction directly (the picker's built-in free-text option) rather than picking this — e.g. "also ignore *.log" or "don't ignore local.properties" — is the fix: adjust the pattern list, then show the corrected Will-be-ignored/Currently-tracked sections with this picker.
+
+After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim (omit it entirely if empty, and omit it when the action failed or was cancelled).

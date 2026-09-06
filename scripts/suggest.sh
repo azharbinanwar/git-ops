@@ -38,6 +38,12 @@ related() {
     squash) printf '%s\n' \
       "${G}amend-msg${E} — reword the last commit" \
       "${G}undo-commit${E} — undo the last commit, keep the changes" ;;
+    create-repo) printf '%s\n' \
+      "${G}commit-and-push${E} — commit everything and push to the new repo" \
+      "${G}init-gitignore${E} — set up .gitignore for this stack" ;;
+    init-gitignore) printf '%s\n' \
+      "${G}commit-only${E} — commit the ignore setup" \
+      "${G}refresh-ignore${E} — re-apply ignore rules to already-tracked files" ;;
     update-branch) printf '%s\n' \
       "${G}pull-rebase${E} — pull with rebase, keep history linear" \
       "${G}merge-branch${E} — merge another branch into this one" ;;
