@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `/add-collaborator` — invite a collaborator by username or email (email resolved via public-email search), permission choice, confirm picker before the invite is sent
+
 - Suggestion footers: 10 action commands end with a single **Tips** block
   - `scripts/suggest.sh` — 2 pre-written related lines per command + 2 tips: state-triggered (waiting stashes, behind origin, merged branches) with a rotating discovery fallback, counter in `.git/`
   - Big flows (commit-and-push, commit-only, create-pr, merge-pr, create-release) get 4 lines; small ones (create-branch, stash, pull-rebase, squash, update-branch) get their 2 related only; `/open-*`/`/view-*` stay footer-free

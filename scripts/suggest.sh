@@ -38,6 +38,9 @@ related() {
     squash) printf '%s\n' \
       "${G}amend-msg${E} — reword the last commit" \
       "${G}undo-commit${E} — undo the last commit, keep the changes" ;;
+    add-collaborator) printf '%s\n' \
+      "${G}request-review${E} — request a PR review from a collaborator" \
+      "${G}assign-pr${E} — assign a collaborator to a PR" ;;
     create-repo) printf '%s\n' \
       "${G}commit-and-push${E} — commit everything and push to the new repo" \
       "${G}init-gitignore${E} — set up .gitignore for this stack" ;;

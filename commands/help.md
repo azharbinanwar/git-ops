@@ -26,6 +26,7 @@ Output exactly this table, nothing else:
 | /revert-commit | Safe undo for a pushed commit — opposite commit, history intact |
 | /update-branch | Bring the default branch's latest into yours — merge or rebase |
 | /delete-branch | Delete one branch — local only (default) or local + remote |
+| /add-collaborator | Invite a collaborator by username or email — confirm picker first |
 | /change-visibility | Make the repo public/private — consequences shown first |
 | /merge-pr | Merge a PR — squash/rebase/merge choice |
 | /create-repo | Name + visibility, create, then separate yes/no on wiring remote — never pushes |
