@@ -16,12 +16,17 @@ disable-model-invocation: true
 If $ARGUMENTS gives no username or email, ask for one in one line and stop.
 
 Resolve who to invite:
-- No `@` in it → it's a username, use as-is.
+- No `@` in it → it's a username: validate it exists with `gh api 'users/<name>' --jq .login` once. Not found → say no GitHub account by that name exists, suggest checking the spelling, ask for the exact username or email, and stop — never show the invite picker for an unverified name.
 - Contains `@` → it's an email: run `gh api 'search/users?q=<email> in:email' --jq '.items[].login'` once. Exactly one match → use that username, and show both (email → resolved username) so the user can verify it's the right person. Zero or multiple matches → say the email can't be resolved (GitHub only finds public emails) and ask for the username instead; stop.
 
 If the resolved username is already in "Existing collaborators" or "Pending invites" above, say so and stop — nothing to send.
 
-Permission: use the one from $ARGUMENTS if given (pull/triage/push/maintain/admin), otherwise default to `push`.
+Permission: use the one from $ARGUMENTS if given (pull/triage/push/maintain/admin). If none was given, present a real option-picker (never plain text) before the confirm step:
+- **Push (Recommended)** — clone, branch, and push; the normal collaborator role
+- **Pull** — read-only: clone and view
+- **Triage** — manage issues and PRs, no code write
+- **Maintain** — push plus repo settings except destructive/sensitive ones
+- **Admin** — full control including settings, collaborators, deletion
 
 Show the plan clearly:
 ```
