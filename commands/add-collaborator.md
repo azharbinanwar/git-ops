@@ -13,7 +13,14 @@ disable-model-invocation: true
 - Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" add-collaborator`
 
 ## Task
-If $ARGUMENTS gives no username or email, ask for one in one line and stop.
+If $ARGUMENTS gives no username or email, show this usage hint and stop:
+```
+Who should I invite? Give a GitHub username or an email.
+  /git-ops:add-collaborator <username>
+  /git-ops:add-collaborator <email>            (works only if their email is public on GitHub)
+  /git-ops:add-collaborator <username> <role>  (role picked via menu when repo supports it)
+```
+Follow it with the "Existing collaborators" from Context (one line: `Already in: <names>`) so the user knows who's there.
 
 Resolve who to invite:
 - No `@` in it → it's a username: validate it exists with `gh api 'users/<name>' --jq .login` once. Not found → say no GitHub account by that name exists, suggest checking the spelling, ask for the exact username or email, and stop — never show the invite picker for an unverified name.
