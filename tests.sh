@@ -31,6 +31,7 @@ check "open: bad page errors"       "error: unknown page"           < <(bash "$S
 check "open: no repo errors"        "error: not a git repo"         < <(cd "$TMP" && bash "$S/open.sh" repo)
 check "open: issue url"             "/issues/7"                     < <(bash "$S/open.sh" issue 7)
 check "open: commit url"            "/commit/abc123"                < <(bash "$S/open.sh" commit abc123)
+check "open: collaborators url"     "/settings/access"              < <(bash "$S/open.sh" collaborators)
 check "open: gist needs no repo"    "gist.github.com/xyz"           < <(cd "$TMP" && bash "$S/open.sh" gist xyz)
 check "open: notifications global"  "github.com/notifications"      < <(cd "$TMP" && bash "$S/open.sh" notifications)
 check "open: compare file anchor"   "#diff-"                        < <(bash "$S/open.sh" compare "a...b" f.txt)

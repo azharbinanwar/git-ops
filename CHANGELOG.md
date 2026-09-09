@@ -2,7 +2,11 @@
 
 ## Unreleased
 
-- `/add-collaborator` — invite a collaborator by username or email (email resolved via public-email search), permission choice, confirm picker before the invite is sent
+- Collaborator family, full view/open symmetry:
+  - `/add-collaborator` — invite by username or email (email resolved via public-email search), permission choice, confirm picker before the invite is sent
+  - `/remove-collaborator` — pick from the list (or name one), consequences stated in the option, cancels pending invites too
+  - `/view-collaborators` — permission + active/pending status per person, in chat
+  - `/open-collaborators` — the repo's access settings page in the browser
 
 - Suggestion footers: 10 action commands end with a single **Tips** block
   - `scripts/suggest.sh` — 2 pre-written related lines per command + 2 tips: state-triggered (waiting stashes, behind origin, merged branches) with a rotating discovery fallback, counter in `.git/`

@@ -39,6 +39,7 @@ case "${1:-repo}" in
   releases) out="$base/releases" ;;
   tags)     out="$base/tags" ;;
   branches) out="$base/branches" ;;
+  collaborators) out="$base/settings/access" ;;
   branch)
     name="${2:-}"
     [ -n "$name" ] || name=$(git branch --show-current 2>/dev/null)
@@ -80,7 +81,7 @@ case "${1:-repo}" in
       else h=$(printf '%s' "$file" | sha256sum | cut -d' ' -f1); fi
       out="$out#diff-$h"
     fi ;;
-  *) echo "error: unknown page '$1' (repo|prs|issues|actions|releases|tags|branches|branch|issue|pr|commit|file-history|compare|notifications|gist)"; exit 0 ;;
+  *) echo "error: unknown page '$1' (repo|prs|issues|actions|releases|tags|branches|collaborators|branch|issue|pr|commit|file-history|compare|notifications|gist)"; exit 0 ;;
 esac
 
 open_url "$out"

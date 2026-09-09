@@ -27,6 +27,9 @@ Output exactly this table, nothing else:
 | /update-branch | Bring the default branch's latest into yours — merge or rebase |
 | /delete-branch | Delete one branch — local only (default) or local + remote |
 | /add-collaborator | Invite a collaborator by username or email — confirm picker first |
+| /remove-collaborator | Remove a collaborator or cancel a pending invite — confirm first |
+| /view-collaborators | Collaborators + pending invites with status, in chat |
+| /open-collaborators | Open the repo's access settings page in the browser |
 | /change-visibility | Make the repo public/private — consequences shown first |
 | /merge-pr | Merge a PR — squash/rebase/merge choice |
 | /create-repo | Name + visibility, create, then separate yes/no on wiring remote — never pushes |
