@@ -21,6 +21,6 @@ Then confirm with a second picker (never plain text):
 - **Remove** — for an active collaborator: runs `gh api -X DELETE 'repos/{owner}/{repo}/collaborators/<username>'` — the description must state they lose access immediately, though existing clones and forks they made remain theirs. For a pending invite: runs `gh api -X DELETE 'repos/{owner}/{repo}/invitations/<id>'` — the description says the invite is cancelled before acceptance. Report the result.
 - **Cancel** — ends the turn immediately, nothing removed.
 
-After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim (omit it entirely if empty, and omit it when the action failed or was cancelled).
+After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim. Omit it entirely — silently, never mentioning it — if it is empty, shows an error, or failed to load, and when the action failed or was cancelled.
 
 Username (optional): $ARGUMENTS

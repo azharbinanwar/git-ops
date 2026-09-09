@@ -24,4 +24,4 @@ Report the branch you're now on (and the stash reference if one was made). The C
 
 What you're about to work on: $ARGUMENTS
 
-After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim (omit it entirely if empty, and omit it when the action failed or was cancelled).
+After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim. Omit it entirely — silently, never mentioning it — if it is empty, shows an error, or failed to load, and when the action failed or was cancelled.

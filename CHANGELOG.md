@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Resilience: suggestion footers are skipped silently if their context fails to load; README documents the recommended permissions allow-rule so bundled scripts never stall on the model-based safety classifier
 - Collaborator family, full view/open symmetry:
   - `/add-collaborator` — invite by username or email (email resolved via public-email search), permission choice, confirm picker before the invite is sent
   - `/remove-collaborator` — pick from the list (or name one), consequences stated in the option, cancels pending invites too

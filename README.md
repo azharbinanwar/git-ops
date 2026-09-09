@@ -33,6 +33,18 @@ Install the plugin:
 /plugin install git-ops@git-ops
 ```
 
+**Recommended:** pre-approve the plugin's bundled scripts so commands never stall on a permission check (they otherwise depend on a model-based safety classifier, which can be down even when your session model works). Add to `~/.claude/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": ["Bash(bash ~/.claude/plugins/cache/git-ops/**)"]
+  }
+}
+```
+
+The scripts are the ones in this repo's `scripts/` — deterministic, no network beyond git/gh, refuse `--force`/`--no-verify` by construction.
+
 Then `/reload-plugins` (or restart Claude Code).
 
 **Requires `gh` (GitHub CLI) installed and logged in** (`gh auth login`) — nearly every command shells out to `gh` or `git`, and the GitHub-facing ones (release, PR, issue, gist, fork, notifications, etc.) won't work without it. **GitHub-only** — the plain-`git` commands (stash, pull, branch, cherry-pick, blame, etc.) work on any host, but anything using `gh` will not work against Bitbucket, GitLab, or other hosts.
