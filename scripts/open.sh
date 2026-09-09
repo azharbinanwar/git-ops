@@ -9,7 +9,8 @@ set -euo pipefail
 
 open_url() {
   # cross-platform: macOS / Linux / Windows (git-bash, WSL)
-  if command -v open >/dev/null 2>&1; then open "$1" >/dev/null 2>&1 || true
+  if [ -n "${GIT_OPS_NO_OPEN:-}" ]; then :
+  elif command -v open >/dev/null 2>&1; then open "$1" >/dev/null 2>&1 || true
   elif command -v xdg-open >/dev/null 2>&1; then xdg-open "$1" >/dev/null 2>&1 || true
   elif command -v cmd.exe >/dev/null 2>&1; then cmd.exe /c start "" "$1" >/dev/null 2>&1 || true
   fi

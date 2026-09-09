@@ -8,6 +8,7 @@ S="$ROOT/scripts"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 PASS=0; FAIL=0
+export GIT_OPS_NO_OPEN=1  # never launch a real browser from tests
 
 check() { # check <name> <expected-substring> <<< actual
   local name="$1" want="$2" got; got=$(cat)
