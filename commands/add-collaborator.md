@@ -23,7 +23,7 @@ Who should I invite? Give a GitHub username or an email.
 Follow it with the "Existing collaborators" from Context (one line: `Already in: <names>`) so the user knows who's there.
 
 Resolve who to invite:
-- No `@` in it → it's a username: validate it exists with `gh api 'users/<name>' --jq '"\(.login) | \(.type) | \(.name // "") | \(.location // "") | \(.public_repos) repos | joined \(.created_at[:10]) | \(.html_url)"'` once. Not found → say no GitHub account by that name exists, suggest checking the spelling, ask for the exact username or email, and stop — never show the invite picker for an unverified name. If type is Organization → say an organization can't be invited as a collaborator and stop.
+- No `@` in it → it's a username: validate it exists with `gh api 'users/<name>' --jq '"\(.login) | \(.type) | name:\(.name // "") | bio:\(.bio // "") | loc:\(.location // "") | \(.public_repos) repos | \(.followers) followers | joined \(.created_at[:10])"'` once. Not found → say no GitHub account by that name exists, suggest checking the spelling, ask for the exact username or email, and stop — never show the invite picker for an unverified name. If type is Organization → say an organization can't be invited as a collaborator and stop.
 - Contains `@` → it's an email: run `gh api 'search/users?q=<email> in:email' --jq '.items[].login'` once. Exactly one match → use that username, and show both (email → resolved username) so the user can verify it's the right person. Zero or multiple matches → say the email can't be resolved (GitHub only finds public emails) and ask for the username instead; stop.
 
 If the resolved username is already in "Existing collaborators" or "Pending invites" above, say so and stop — nothing to send.
@@ -35,12 +35,20 @@ Permission — only when "Repo" above says org repo (personal repos don't suppor
 - **Maintain** — push plus repo settings except destructive/sensitive ones
 - **Admin** — full control including settings, collaborators, deletion
 
-Show the plan clearly:
+Show the user card, then the plan. The card is a markdown table (renders as a real table; empty fields' rows are dropped; the Profile row is a markdown link so it's clickable):
+
+| `@<login>` | <name, or login if unset> |
+|---|---|
+| Bio | <bio> |
+| Location | <location> |
+| Repos / Followers | <public_repos> repos · <followers> followers |
+| Joined | <created_at as Mon YYYY> |
+| Profile | [github.com/<login>](https://github.com/<login>) |
+
+Then the plan:
 ```
 Repo:       <nameWithOwner>
 Invite:     <username> (resolved from <email>, if applicable)
-Who:        <name> · <location> · <N> repos · joined <year-month> — skip any empty field; omit the line only if all are empty
-Profile:    <html_url>
 Permission: <permission>          <- org repos only; omit the line on a personal repo
 ```
 Then present two options via the option-picker tool (never plain text). The **Send invite** option's description must repeat the identity summary (name · location · repos · joined) so the user verifies the person at the moment of choosing, not from memory:
