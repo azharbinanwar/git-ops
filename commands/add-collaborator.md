@@ -43,7 +43,7 @@ Who:        <name> · <location> · <N> repos · joined <year-month> — skip an
 Profile:    <html_url>
 Permission: <permission>          <- org repos only; omit the line on a personal repo
 ```
-Then present two options via the option-picker tool (never plain text):
+Then present two options via the option-picker tool (never plain text). The **Send invite** option's description must repeat the identity summary (name · location · repos · joined) so the user verifies the person at the moment of choosing, not from memory:
 - **Send invite** — runs `gh api -X PUT 'repos/{owner}/{repo}/collaborators/<username>' --jq '"invited: \(.invitee.login) — \(.permissions) (\(.html_url))"'` once, appending `-f permission=<permission>` only on an org repo (the --jq keeps the response to one line; a 204/empty response means they were added directly with no invite step). Report exactly one line — `Invite sent: <username> → <repo> (pending acceptance)` — nothing more; no explanation of how GitHub invitations work.
 - **Fix something first** — ends the turn immediately, nothing sent. A typed correction (different user, different permission) = the fix: apply it, then re-show the plan with this picker.
 
