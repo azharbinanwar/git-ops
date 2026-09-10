@@ -35,15 +35,16 @@ Permission — only when "Repo" above says org repo (personal repos don't suppor
 - **Maintain** — push plus repo settings except destructive/sensitive ones
 - **Admin** — full control including settings, collaborators, deletion
 
-Show the user card, then the plan. The card is a markdown table (renders as a real table; empty fields' rows are dropped; the Profile row is a markdown link so it's clickable):
+Show the user card, then the plan. The card is plain aligned text inside a code fence (soft look — pipes and spaces, no rendered table borders; drop any empty field's line). The profile URL is written bare so the terminal makes it clickable:
 
-| `@<login>` | <name, or login if unset> |
-|---|---|
-| Bio | <bio> |
-| Location | <location> |
-| Repos / Followers | <public_repos> repos · <followers> followers |
-| Joined | <created_at as Mon YYYY> |
-| Profile | [github.com/<login>](https://github.com/<login>) |
+```
+@<login>            <name, or login if unset>
+Bio                 <bio>
+Location            <location>
+Repos / Followers   <public_repos> repos · <followers> followers
+Joined              <Mon YYYY>
+Profile             https://github.com/<login>
+```
 
 Then the plan:
 ```

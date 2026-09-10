@@ -1,13 +1,14 @@
 # Changelog
 
-## Unreleased
+## 1.6.0 — 2026-09-10
 
-- Resilience: suggestion footers are skipped silently if their context fails to load; README documents the recommended permissions allow-rule so bundled scripts never stall on the model-based safety classifier
 - Collaborator family, full view/open symmetry:
-  - `/add-collaborator` — invite by username or email (email resolved via public-email search), permission choice, confirm picker before the invite is sent
-  - `/remove-collaborator` — pick from the list (or name one), consequences stated in the option, cancels pending invites too
-  - `/view-collaborators` — permission + active/pending status per person, in chat
-  - `/open-collaborators` — the repo's access settings page in the browser
+  - `/add-collaborator` — invite by username or email (email resolved via public-email search). The account is validated before anything can be sent: a nonexistent name is refused, an Organization can't be invited, and the confirm shows a profile card (display name, repos, followers, joined date, clickable profile link) so the right person is verifiable at a glance. Role menu appears only where GitHub supports roles (org repos); personal repos skip it — collaborators get write access. Already-invited and already-active users are detected and skipped. Success is one line, not an API dump; bare invocation shows usage plus who's already in.
+  - `/remove-collaborator` — pick from the list (or name one), consequences stated in the option itself (access ends immediately; their clones and forks remain), cancels pending invites too
+  - `/view-collaborators` — permission + active/pending status (with date) per person, in chat
+  - `/open-collaborators` — the repo's access settings page in the browser (new `collaborators` target in open.sh)
+- Resilience: suggestion footers are skipped silently if their context fails to load; README documents the recommended permissions allow-rule so bundled scripts never stall on the model-based safety classifier
+- tests.sh never launches a real browser anymore — open.sh honors `GIT_OPS_NO_OPEN` and the suite sets it (previously every test run opened its fake URLs in the default browser)
 
 - Suggestion footers: 10 action commands end with a single **Tips** block
   - `scripts/suggest.sh` — 2 pre-written related lines per command + 2 tips: state-triggered (waiting stashes, behind origin, merged branches) with a rotating discovery fallback, counter in `.git/`
