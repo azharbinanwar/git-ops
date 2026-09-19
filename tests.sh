@@ -33,6 +33,7 @@ check "open: no repo errors"        "error: not a git repo"         < <(cd "$TMP
 check "open: issue url"             "/issues/7"                     < <(bash "$S/open.sh" issue 7)
 check "open: commit url"            "/commit/abc123"                < <(bash "$S/open.sh" commit abc123)
 check "open: collaborators url"     "/settings/access"              < <(bash "$S/open.sh" collaborators)
+check "open: network url"           "/network"                      < <(bash "$S/open.sh" network)
 check "open: gist needs no repo"    "gist.github.com/xyz"           < <(cd "$TMP" && bash "$S/open.sh" gist xyz)
 check "open: notifications global"  "github.com/notifications"      < <(cd "$TMP" && bash "$S/open.sh" notifications)
 check "open: compare file anchor"   "#diff-"                        < <(bash "$S/open.sh" compare "a...b" f.txt)
@@ -101,6 +102,40 @@ check "change-list: modified line"   "Modified: f.txt"              < <(bash "$S
 check "change-list: empty range"     "(no changes)"                 < <(bash "$S/change-list.sh" "HEAD...HEAD")
 check "create-release: no tag"      "error: no version tag"         < <(bash "$S/create-release.sh" < /dev/null)
 check "create-release: empty title" "error: empty release title"    < <(printf '\n\n\n' | bash "$S/create-release.sh" v0)
+
+# push.sh
+echo pushme > p.txt; git add p.txt; git commit -qm "push test"
+check "push: pushes commits"        "pushed:"                       < <(bash "$S/push.sh")
+check "push: nothing to push"       "error: nothing to push"        < <(bash "$S/push.sh")
+git remote set-url origin "$TMP/nowhere.git"
+echo again > p.txt; git add p.txt; git commit -qm "push fail test"
+check "push: fails loud"            "PUSH FAILED"                   < <(bash "$S/push.sh")
+git remote set-url origin "$TMP/origin.git"
+bash "$S/push.sh" >/dev/null 2>&1
+
+# branch-history.sh
+main_br=$(git branch --format='%(refname:short)' | grep -E '^(main|master)$' | head -1)
+git checkout -qb bh-feat "$main_br"
+echo bh1 > bh.txt; git add bh.txt; git commit -qm "bh: first"
+echo bh2 >> bh.txt; git add bh.txt; git commit -qm "bh: second"
+check "bhist: timeline created"     "created      from" < <(bash "$S/branch-history.sh" bh-feat "$main_br")
+check "bhist: not merged status"    "not merged     ahead of $main_br by 2" < <(bash "$S/branch-history.sh" bh-feat "$main_br")
+check "bhist: work commits"         "bh: second"                    < <(bash "$S/branch-history.sh" bh-feat "$main_br")
+check "bhist: graph fork point"     "fork point"                    < <(bash "$S/branch-history.sh" bh-feat "$main_br")
+git checkout -q "$main_br"; git merge -q --no-ff bh-feat -m "Merge branch 'bh-feat'" 2>/dev/null
+check "bhist: merged into"          "merged       into $main_br"    < <(bash "$S/branch-history.sh" bh-feat "$main_br")
+check "bhist: unknown branch"       "error: no branch named"        < <(bash "$S/branch-history.sh" zz-none "$main_br")
+
+# ignore-scan.sh / add-to-ignore.sh
+echo secret > sec.jks; git add sec.jks
+check "iscan: finds + staged"        "sec.jks | staged (never committed) | NOT ignored" < <(bash "$S/ignore-scan.sh" jks)
+check "iscan: no match"              "no match on disk"              < <(bash "$S/ignore-scan.sh" zz-nope)
+check "iscan: empty term"            "(no pattern given)"            < <(bash "$S/ignore-scan.sh" "")
+check "ati: adds + untracks"         "untracked: sec.jks"            < <(bash "$S/add-to-ignore.sh" gitignore "*.jks" sec.jks)
+check "ati: dedup"                   "already present"               < <(bash "$S/add-to-ignore.sh" gitignore "*.jks")
+check "iscan: now ignored"           "sec.jks | untracked | ignored" < <(bash "$S/ignore-scan.sh" jks)
+check "ati: bad dest"                "error: destination"            < <(bash "$S/add-to-ignore.sh" nowhere "*.jks")
+rm -f sec.jks; git checkout -q -- .gitignore 2>/dev/null || rm -f .gitignore
 
 # suggest.sh
 check "suggest: related lines"      '/git-ops:create-pr` — turn this branch into a PR' < <(bash "$S/suggest.sh" commit-and-push)

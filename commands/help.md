@@ -11,6 +11,7 @@ Output exactly this table, nothing else:
 |---|---|
 | /commit-msg | Short + detailed message from open changes, never commits |
 | /commit-only | List + message + Commit/Fix picker — commits, no push |
+| /push | Push existing commits only — shows what goes out, sets upstream, never forces |
 | /commit-and-push | Same, but Commit & Push actually pushes too |
 | /create-release | Version + notes + Create/Fix picker — creates the release |
 | /create-pr | Detects default branch + dup check + Create/Fix picker |
@@ -61,7 +62,9 @@ Output exactly this table, nothing else:
 | /pop-stash | Pick a stash, restore it — pop or apply |
 | /create-branch | Suggest a name, create + switch |
 | /checkout-branch | Pick a branch from a list, switch safely |
+| /view-branch-history | A branch's life: created, merges in/out, work, annotated graph |
 | /view-branches | All branches: age, author, merged/pushed state |
+| /open-network | GitHub's visual all-branches graph in the browser |
 | /open-branches | Open the branches page on GitHub |
 | /open-branch | Open a branch's file tree on GitHub |
 | /view-prs | List ALL open PRs (any author) with CI/review |

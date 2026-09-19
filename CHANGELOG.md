@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- `/push` — push existing commits without committing anything: unpushed list shown first, behind-upstream warned (suggests `/pull-rebase`), upstream set when missing, `--force` impossible by construction (`scripts/push.sh`)
+- `/view-branch-history [branch] [base]` — the branch's life in chat via `scripts/branch-history.sh`: Timeline (created from where per reflog, or honestly "before local history"; every merge of the branch into its base, dated; merges pulled in since; "new work" not yet in base), Status (fully merged / not fully merged with older work merged / not merged, ahead-behind, unpushed), Work (totals + last 5 commits; correct even after a full merge), and a word-annotated graph (legend line, per-commit side column `main`/`branch`/`MERGE`/`fork point`, subjects trimmed so rails never wrap; linear history says so in one line instead of faking a graph). Merges are matched by the merge commit naming the branch, so another branch's merge is never attributed to this one; squash merges show as fully merged without a dated line (git keeps none). Verified on real multi-branch histories in the test repo.
+- `/open-network` — GitHub's visual all-branches graph (new `network` target in open.sh)
+- `/add-to-ignore` rebuilt script-backed: `ignore-scan.sh` pre-injects disk matches with tracked/ignored state (one shot, no model-driven find/cat/ls-files round-trips), `add-to-ignore.sh` appends deduped and untracks in one call; model drops from sonnet to haiku. 7 new tests.
+
 ## 1.6.0 — 2026-09-10
 
 - Collaborator family, full view/open symmetry:

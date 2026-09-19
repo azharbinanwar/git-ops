@@ -1,24 +1,31 @@
 ---
 description: Add a file/pattern to .gitignore or .git/info/exclude — untracking it too if git already tracks it
 argument-hint: "[file or pattern]"
-allowed-tools: Bash(git status:*), Bash(git ls-files:*), Bash(git rm:*), Bash(find:*), Bash(ls:*)
-model: sonnet
+allowed-tools: Bash(bash:*)
+model: haiku
+effort: low
 disable-model-invocation: true
 ---
-First resolve what was actually typed against what's really on disk (`find`/`ls` from the repo root) — never assume the path means what it sounds like. Report plainly before anything else:
-- **Interpreted as:** the exact pattern that will be written (e.g. typing `root/dev` is a literal path `root/dev` from the repo root, NOT "the `dev` folder at my project's root" — that would need just `dev` or `/dev` instead)
-- **Found on disk:** what that exact path/pattern actually matches right now, if anything
-- If nothing on disk matches what was typed, say so plainly and ask what was meant instead — do not guess or silently correct it, do not proceed to the picker
+## Context
+- Scan: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/ignore-scan.sh" "$ARGUMENTS"`
+- Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" add-to-ignore`
 
-Once the path is confirmed correct, check whether it's already tracked (`git ls-files <pattern>`). Report:
-- Currently tracked: yes/no
-- If tracked, adding it will also run `git rm --cached <file>` to untrack it (keeps the file on disk, just stops tracking it) — note this needs a commit afterward to take effect
+## Task
+The Scan above already resolved the input against disk (each line: `path | tracked-state | ignore-state`). Run no discovery commands — the Scan is the whole truth.
 
-Present real selectable options using the option-picker tool, not plain-text yes/no — never assume or auto-pick the location, always ask:
-- **Add to .gitignore** — a normal, shared, committed ignore rule everyone who clones the repo gets.
-- **Add to .git/info/exclude** — a local-only ignore rule, never committed or shared — the right choice for personal/tool-specific noise (e.g. AI-assistant working files) you don't want showing up in the repo's own `.gitignore` for everyone else.
-- **Fix something first** — ends the turn immediately, nothing changed. A typed correction = the fix: apply it, then re-show the corrected plan with this picker.
+- Scan says "(no pattern given)" → ask in one line what to ignore; stop.
+- Scan says "no match on disk" → say so and ask what was meant; stop — never guess a pattern for a file that doesn't exist.
+- Every candidate already `ignored` and `untracked` → say nothing needs doing; stop.
 
-Whichever location is picked: add the entry, run `git rm --cached` if it was tracked, then report what changed and remind the user a commit is needed afterward if anything was untracked.
+Otherwise, take the candidates that need action (NOT ignored, or still tracked/staged) and show a 2-3 line plan: the exact pattern(s) to write (root-anchor single files as `/name`; use a wildcard like `*.jks` only when the user's term implies a class of files), and which tracked paths will be untracked (note untracking needs a commit afterward).
+
+Present the location via the option-picker tool (never plain text; never auto-pick):
+- **Add to .gitignore** — shared, committed rule everyone gets.
+- **Add to .git/info/exclude** — local-only, never committed — right for personal/tool noise.
+- **Fix something first** — ends the turn, nothing changed. A typed correction = the fix: apply it, re-show this picker.
+
+On pick run exactly one command per pattern: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/add-to-ignore.sh" <gitignore|exclude> "<pattern>" <tracked paths...>` — the script dedupes the entry and untracks the paths. Report its receipt lines verbatim, nothing more.
+
+After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim. Omit it entirely — silently, never mentioning it — if it is empty, shows an error, or failed to load, and when the action failed or was cancelled.
 
 File/pattern: $ARGUMENTS

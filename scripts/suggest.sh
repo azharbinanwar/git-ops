@@ -14,6 +14,9 @@ related() {
     commit-and-push) printf '%s\n' \
       "${G}create-pr${E} — turn this branch into a PR" \
       "${G}pr-status${E} — check PR state for this branch" ;;
+    push) printf '%s\n' \
+      "${G}pr-status${E} — check PR state for this branch" \
+      "${G}view-branch-history${E} — this branch's life story in chat" ;;
     commit-only) printf '%s\n' \
       "${G}commit-and-push${E} — commit and push in one go" \
       "${G}amend-msg${E} — reword the last commit" ;;
@@ -59,7 +62,7 @@ related() {
 
 tip_enabled() {
   case "$1" in
-    commit-and-push|commit-only|create-pr|merge-pr|create-release) return 0 ;;
+    commit-and-push|commit-only|create-pr|merge-pr|create-release|push) return 0 ;;
     *) return 1 ;;
   esac
 }
