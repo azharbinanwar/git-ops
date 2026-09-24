@@ -77,6 +77,10 @@ check "commit-only: clean tree"     "error: nothing to commit"      < <(printf '
 # commit-and-push.sh — real push to the local bare origin
 echo more >> f.txt
 check "commit-push: success+push"   "committed and pushed:"         < <(printf 'test: cp\n' | bash "$S/commit-and-push.sh")
+echo viafile > f.txt; printf 'test: via file\n\n- body line\n' > "$TMP/msg.txt"
+check "commit-push: message file"   "committed and pushed:"         < <(bash "$S/commit-and-push.sh" "$TMP/msg.txt")
+check "commit-push: file deleted"   "EMPTY"                         < <([ ! -f "$TMP/msg.txt" ] && echo EMPTY)
+check "commit-push: missing file"   "error: commit message file not found" < <(bash "$S/commit-and-push.sh" "$TMP/nope.txt")
 # push failure: point origin somewhere dead
 git remote set-url origin "$TMP/nowhere.git"
 echo again >> f.txt
@@ -138,6 +142,8 @@ check "ati: bad dest"                "error: destination"            < <(bash "$
 rm -f sec.jks; git checkout -q -- .gitignore 2>/dev/null || rm -f .gitignore
 
 # suggest.sh
+check "suggest: default-branch pair" '/git-ops:create-release` — cut a release' < <(bash "$S/suggest.sh" commit-and-push)
+git checkout -q bh-feat
 check "suggest: related lines"      '/git-ops:create-pr` — turn this branch into a PR' < <(bash "$S/suggest.sh" commit-and-push)
 check "suggest: related header"     "**Tips**"                      < <(bash "$S/suggest.sh" stash)
 check "suggest: big cmds 4 lines"   "5"                             < <(bash "$S/suggest.sh" commit-only | wc -l | tr -d " ")

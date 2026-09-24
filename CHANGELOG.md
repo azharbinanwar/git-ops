@@ -1,7 +1,13 @@
 # Changelog
 
-## Unreleased
+## 1.7.0 — 2026-09-24
 
+- `/commit-and-push` and `/commit-only` tightened after a real 29-file run needed three attempts:
+  - The picker is required in the same turn as the review sections — ending the turn without it is defined as a failure (previously the model would print the sections and stop)
+  - File numbers in the picker come from a pre-injected `File count`, never from the model counting rows (a 29-file commit was announced as 21)
+  - Commit message written once via Write to `.git/GITOPS_COMMITMSG` (the Write display is the review copy) — `commit-and-push.sh` and `commit-only.sh` take the file as an argument and delete it on success; corrections are `Edit`s of changed lines only; the heredoc that retyped the whole message is gone. Stdin still works.
+  - Script receipt is relayed verbatim with no re-summary
+  - Tips are default-branch-aware: on `main`/`master` the commit and push commands suggest `/create-release` and `/view-branch-history` instead of "turn this branch into a PR"
 - `/push` — push existing commits without committing anything: unpushed list shown first, behind-upstream warned (suggests `/pull-rebase`), upstream set when missing, `--force` impossible by construction (`scripts/push.sh`)
 - `/view-branch-history [branch] [base]` — the branch's life in chat via `scripts/branch-history.sh`: Timeline (created from where per reflog, or honestly "before local history"; every merge of the branch into its base, dated; merges pulled in since; "new work" not yet in base), Status (fully merged / not fully merged with older work merged / not merged, ahead-behind, unpushed), Work (totals + last 5 commits; correct even after a full merge), and a word-annotated graph (legend line, per-commit side column `main`/`branch`/`MERGE`/`fork point`, subjects trimmed so rails never wrap; linear history says so in one line instead of faking a graph). Merges are matched by the merge commit naming the branch, so another branch's merge is never attributed to this one; squash merges show as fully merged without a dated line (git keeps none). Verified on real multi-branch histories in the test repo.
 - `/open-network` — GitHub's visual all-branches graph (new `network` target in open.sh)

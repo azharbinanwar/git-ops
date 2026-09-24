@@ -9,7 +9,18 @@ cmd="${1:-}"
 G='`/git-ops:'   # open: backtick + namespace
 E='`'            # close backtick
 
+on_default() {
+  def=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's#.*/##')
+  [ -n "$def" ] || def=$(git branch --format='%(refname:short)' 2>/dev/null | grep -Ex 'main|master' | head -1)
+  [ -n "$def" ] && [ "$(git branch --show-current 2>/dev/null)" = "$def" ]
+}
+
 related() {
+  case "$1" in
+    commit-and-push|commit-only|push) if on_default; then printf '%s\n' \
+      "${G}create-release${E} — cut a release from this branch" \
+      "${G}view-branch-history${E} — this branch's life story in chat"; return; fi ;;
+  esac
   case "$1" in
     commit-and-push) printf '%s\n' \
       "${G}create-pr${E} — turn this branch into a PR" \
