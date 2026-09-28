@@ -7,7 +7,7 @@ disable-model-invocation: true
 ---
 ## Context
 - Status: !`git status --short`
-- File count: !`git status --porcelain 2>/dev/null | wc -l | tr -d ' '`
+- File count: !`git status --porcelain -uall 2>/dev/null | wc -l | tr -d ' '`
 - Changes: !`git diff HEAD --shortstat 2>/dev/null || git diff --cached --shortstat 2>/dev/null || true`
 - Untracked folders: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/untracked-scan.sh"`
 - Secrets: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/secrets-scan.sh"`
@@ -32,7 +32,7 @@ disable-model-invocation: true
    - Both → **Exclude junk + secret & push** / **Exclude junk only & push** / **Exclude secret only & push** / **Commit & Push anyway** (Fix first still works: the picker's built-in typed answer = a correction).
    How each option runs:
    - **Exclude … & push** — first, for the named files: untracked ones get `printf '%s\n' <each path, one per printf arg> >> .git/info/exclude`; tracked ones get `git rm --cached -- <path>` *and* the same printf — the description must say the commit will record that file's removal from the repo (it stays on disk, and old contents stay in past history — a tracked `[secret]` is already leaked, rotate it). Then run the same script call as Commit & Push.
-   - **Commit & Push** (or **… anyway**) — run exactly one command: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/commit-and-push.sh" .git/GITOPS_COMMITMSG` — the message comes from the file (the script deletes it on success). The script stages everything — including any flagged files — commits, and pushes (or `-u origin <branch>` if no upstream), and refuses `--force`/`--no-verify` by construction. Report its output verbatim and nothing else — no summary sentence of your own, no repeated file list. If it starts with "error:" or contains "PUSH FAILED", that is the full story: relay it and stop, run nothing else.
+   - **Commit & Push** (or **… anyway**) — run exactly one command: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/commit-and-push.sh" .git/GITOPS_COMMITMSG` — the message comes from the file (the script deletes it on success). The script stages everything — including any flagged files — commits, and pushes (or `-u origin <branch>` if no upstream), and refuses `--force`/`--no-verify` by construction. The script's output is already on screen — never retype it. After it, write exactly one line: `✓ <commit title> — <hash> (<N> files) → <target>` taken from the receipt, then the Suggestions block. If the output starts with "error:" or contains "PUSH FAILED", that is the full story: relay it and stop, run nothing else.
    - **Fix something first** — ends the turn immediately, nothing committed, nothing pushed. A typed correction is applied to the commit-title/commit-body text only — run no commands in response to it (the Context above stays the truth) unless it explicitly names files to add or exclude. Apply it with Edit to `.git/GITOPS_COMMITMSG` (only the changed lines), then re-show this picker.
 
 Emphasis (optional): $ARGUMENTS

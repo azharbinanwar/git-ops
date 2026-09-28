@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.1 — 2026-09-28
+
+- `/commit-and-push` and `/commit-only`: the picker's file number now expands untracked folders (`git status -uall`) — a 12-file commit was announced as "5 files" because two new folders counted as one line each. After the script runs the model writes one line, `✓ <title> — <hash> (<N> files) → <target>`, then Tips; the receipt and file list are never retyped (they were appearing twice).
+
 ## 1.7.0 — 2026-09-24
 
 - `/commit-and-push` and `/commit-only` tightened after a real 29-file run needed three attempts:
