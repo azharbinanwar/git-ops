@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.2 — 2026-09-29
+
+- `/commit-and-push` and `/commit-only`: the `commit-title` / `commit-body` sections are back as text — the Write-display-as-review-copy idea only worked with `verbose` on; with it off Claude Code truncates the preview and the message was unreadable before the picker. The file write for the script stays; corrections still `Edit` the file and now re-show the corrected sections.
+
 ## 1.7.1 — 2026-09-28
 
 - `/commit-and-push` and `/commit-only`: the picker's file number now expands untracked folders (`git status -uall`) — a 12-file commit was announced as "5 files" because two new folders counted as one line each. After the script runs the model writes one line, `✓ <title> — <hash> (<N> files) → <target>`, then Tips; the receipt and file list are never retyped (they were appearing twice).
