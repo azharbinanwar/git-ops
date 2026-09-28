@@ -10,9 +10,9 @@ Output exactly this table, nothing else:
 | Command | Use when you want |
 |---|---|
 | /commit-msg | Short + detailed message from open changes, never commits |
-| /commit-only | List + message + Commit/Fix picker — commits, no push |
-| /push | Push existing commits only — shows what goes out, sets upstream, never forces |
-| /commit-and-push | Same, but Commit & Push actually pushes too |
+| /commit-only | List + message + Commit/Fix picker — commits, no push; `now` skips the confirm on a clean run |
+| /push | Push existing commits only — shows what goes out, sets upstream, never forces; `now` skips the confirm |
+| /commit-and-push | Same, but Commit & Push actually pushes too; `now` skips the confirm on a clean run |
 | /create-release | Version + notes + Create/Fix picker — creates the release |
 | /create-pr | Detects default branch + dup check + Create/Fix picker |
 | /pr-desc | PR title + description only, doesn't open it |

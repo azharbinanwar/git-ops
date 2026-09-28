@@ -1,6 +1,6 @@
 ---
 description: List changes + message, pick Commit & Push or Fix first — commits locally then pushes
-argument-hint: "[optional: anything to emphasize]"
+argument-hint: "[now] [optional: anything to emphasize] — now = skip the confirm on a clean run"
 allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git rev-parse:*), Bash(git branch:*), Bash(git rm:*), Bash(bash:*), Bash(printf:*), Write, Edit
 model: sonnet
 disable-model-invocation: true
@@ -18,6 +18,7 @@ disable-model-invocation: true
 - Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" commit-and-push`
 
 ## Task
+0. Mode: if `$1` (the first word of the arguments) is exactly `now`, the user has already reviewed and wants no confirmation. Everything below still runs and prints — change list, AI check, secrets check, title, body, the Write — but at step 3, **only if the AI check says "None flagged." and the Secrets check says none found**, skip the picker and run the Commit & Push script immediately, exactly as if the user had picked **Commit & Push**. If anything is flagged, `now` is ignored and the picker is shown as usual — a keyword never bypasses an exclude option. The words after `now` are the emphasis; any other first word is plain emphasis, not a mode.
 1. If "Status"/"Changes" above show no open changes, report the "Last commit" above (hash, message, how long ago) and whether it's already pushed (compare to Upstream). Say there's nothing new to commit. Stop — do not write a message or show the picker.
 2. Output exactly these five labeled sections, in this order, then the Write in step 2b, nothing else. Mandatory on every invocation, even if shown earlier in this conversation (the state may have changed); run no extra commands — the Context above is the only data needed:
    - **Change list** — one line per file, vertical, as `Added: path` / `Modified: path` / `Deleted: path` (covers staged + unstaged + untracked — the diff is the truth, not this conversation). For an untracked directory, one line with its file count from "Untracked folders" above: `Added: dir/ (N files)`.
@@ -38,6 +39,6 @@ disable-model-invocation: true
    - **Commit & Push** (or **… anyway**) — run exactly one command: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/commit-and-push.sh" .git/GITOPS_COMMITMSG` — the message comes from the file (the script deletes it on success). The script stages everything — including any flagged files — commits, and pushes (or `-u origin <branch>` if no upstream), and refuses `--force`/`--no-verify` by construction. The script's output is already on screen — never retype it. After it, write exactly one line: `✓ <commit title> — <hash> (<N> files) → <target>` taken from the receipt, then the Suggestions block. If the output starts with "error:" or contains "PUSH FAILED", that is the full story: relay it and stop, run nothing else.
    - **Fix something first** — ends the turn immediately, nothing committed, nothing pushed. A typed correction is applied to the commit-title/commit-body text only — run no commands in response to it (the Context above stays the truth) unless it explicitly names files to add or exclude. Apply it with Edit to `.git/GITOPS_COMMITMSG` (only the changed lines), re-show the corrected `commit-title`/`commit-body` sections as text, then this picker.
 
-Emphasis (optional): $ARGUMENTS
+Arguments (first word `now` = skip-confirm mode, the rest is emphasis): $ARGUMENTS
 
 After the action completes successfully, end your output by reproducing the "Suggestions" block above verbatim. Omit it entirely — silently, never mentioning it — if it is empty, shows an error, or failed to load, and when the action failed or was cancelled.

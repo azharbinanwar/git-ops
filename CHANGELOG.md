@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0 — 2026-09-29
+
+- Skip-confirm mode: `/commit-and-push now`, `/commit-only now`, `/push now`. Everything still prints (change list, AI check, secrets check, title, body) but the picker is skipped and the script runs immediately — only on a clean run. Any AI-check or secrets flag ignores `now` and shows the picker with its exclude options; `/push now` still stops when the branch is behind its upstream. Words after `now` are emphasis as before. No dashes: it's a bare first word (`$1`).
+
 ## 1.7.2 — 2026-09-29
 
 - `/commit-and-push` and `/commit-only`: the `commit-title` / `commit-body` sections are back as text — the Write-display-as-review-copy idea only worked with `verbose` on; with it off Claude Code truncates the preview and the message was unreadable before the picker. The file write for the script stays; corrections still `Edit` the file and now re-show the corrected sections.
