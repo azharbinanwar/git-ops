@@ -12,7 +12,7 @@ export GIT_OPS_NO_OPEN=1  # never launch a real browser from tests
 
 check() { # check <name> <expected-substring> <<< actual
   local name="$1" want="$2" got; got=$(cat)
-  if printf '%s' "$got" | grep -qF "$want"; then
+  if grep -qF -- "$want" <<< "$got"; then  # here-string: a pipe into grep -q can SIGPIPE under pipefail
     PASS=$((PASS+1)); echo "ok: $name"
   else
     FAIL=$((FAIL+1)); echo "FAIL: $name"; echo "  wanted: $want"; echo "  got: $(printf '%s' "$got" | head -3)"
@@ -63,6 +63,10 @@ echo change >> f.txt
 check "stash: no name lists files"  "error: stash name required"    < <(bash "$S/stash.sh")
 check "stash: works with name"      'stashed 1 files as "t1"'       < <(bash "$S/stash.sh" t1)
 git stash pop -q
+printf 'u\n' > untracked-only.txt
+check "stash: includes untracked"   'files as "t2"'       < <(bash "$S/stash.sh" t2)
+check "stash: untracked gone"       "EMPTY"                         < <([ ! -f untracked-only.txt ] && echo EMPTY)
+git stash pop -q; rm -f untracked-only.txt
 git add f.txt
 check "unstage: works"              "unstaged: f.txt"               < <(bash "$S/unstage.sh" f.txt)
 check "unstage: not staged errors"  "not staged"                    < <(bash "$S/unstage.sh" f.txt)
@@ -140,6 +144,24 @@ check "ati: dedup"                   "already present"               < <(bash "$
 check "iscan: now ignored"           "sec.jks | untracked | ignored" < <(bash "$S/ignore-scan.sh" jks)
 check "ati: bad dest"                "error: destination"            < <(bash "$S/add-to-ignore.sh" nowhere "*.jks")
 rm -f sec.jks; git checkout -q -- .gitignore 2>/dev/null || rm -f .gitignore
+
+check "resolve: empty input"        "none: no username or email given" < <(bash "$S/resolve-user.sh" "")
+
+# amend-msg.sh: message only, staged work stays out
+echo staged-not-amended > amend-probe.txt; git add amend-probe.txt
+check "amend: message changed"      "amended message:"              < <(printf 'test: amended title\n' | bash "$S/amend-msg.sh")
+check "amend: staged left out"      "EMPTY"                         < <(git show --name-only --format= HEAD | grep -q amend-probe.txt || echo EMPTY)
+check "amend: still staged"         "amend-probe.txt"               < <(git diff --cached --name-only)
+check "amend: new title"            "test: amended title"           < <(git log -1 --format=%s)
+check "amend: empty msg"            "error: empty commit message"   < <(printf '' | bash "$S/amend-msg.sh")
+git reset -q amend-probe.txt; rm -f amend-probe.txt
+
+# secrets-scan.sh with a range: committed secrets in a PR are caught on a clean tree
+git checkout -qb sec-range "$main_br"
+echo "k" > deploy.pem; git add deploy.pem; git commit -qm "add key"
+check "secrets: range catches commit" "deploy.pem"                  < <(bash "$S/secrets-scan.sh" "$main_br...HEAD")
+check "secrets: clean tree misses it" "none found"                  < <(bash "$S/secrets-scan.sh")
+git checkout -q "$main_br"
 
 # suggest.sh
 check "suggest: default-branch pair" '/git-ops:create-release` — cut a release' < <(bash "$S/suggest.sh" commit-and-push)

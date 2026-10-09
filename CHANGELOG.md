@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.9.0 — 2026-10-09
+
+Safety fixes — each one was a case where a command did less (or more) than it promised:
+
+- `/stash` now stashes new (untracked) files too (`git stash push -u`). Before, a tree with only new files produced "stashed 4 files" while stashing nothing; the script now verifies a stash was actually created and notes anything left open.
+- `/amend-msg` changes the message only. It used `git commit --amend`, which also folded in anything staged; the new `scripts/amend-msg.sh` uses `--amend --only`, leaves staged work staged, and says so.
+- `/create-pr` scans the commits the PR will publish (`secrets-scan.sh origin/HEAD...HEAD`), not the working tree — a key committed earlier on the branch was invisible on a clean tree.
+- `/add-collaborator` resolves the user through `scripts/resolve-user.sh`, pre-injected: one properly encoded lookup with a 15-second limit that works on macOS, returning `user:`, `none:` or `error:`. An email search used to hang and the model improvised retries (`timeout`, rate-limit checks, rewritten queries); now anything but one match asks for the username and stops.
+- Test harness: `check()` no longer pipes into `grep -q` under `pipefail`, which failed intermittently on longer outputs (SIGPIPE) even when the expected text was present. 10 new tests (79 total); README no longer hardcodes a stale test count.
+
 ## 1.8.0 — 2026-09-29
 
 - Skip-confirm mode: `/commit-and-push now`, `/commit-only now`, `/push now`. Everything still prints (change list, AI check, secrets check, title, body) but the picker is skipped and the script runs immediately — only on a clean run. Any AI-check or secrets flag ignores `now` and shows the picker with its exclude options; `/push now` still stops when the branch is behind its upstream. Words after `now` are emphasis as before. No dashes: it's a bare first word (`$1`).

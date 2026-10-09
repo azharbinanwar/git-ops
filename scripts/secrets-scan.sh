@@ -1,5 +1,7 @@
 #!/bin/bash
-# secrets-scan.sh — flag files `git add -A` would stage that may hold secrets.
+# secrets-scan.sh [range] — flag files that may hold secrets.
+# No range: files `git add -A` would stage. With a range (e.g. origin/HEAD...HEAD):
+# files the commits in that range touch — what a PR would publish.
 # [secret] = stop and think. [review] = gray zone, confirm intended.
 # Filename-based (fast, no deps); if gitleaks is installed, its content scan
 # is appended for professional-grade coverage.
@@ -7,11 +9,16 @@ set -uo pipefail
 
 git rev-parse --git-dir >/dev/null 2>&1 || { echo "none found."; exit 0; }
 
+range="${1:-}"
+if [ -n "$range" ]; then
+  files=$(git diff --name-only --diff-filter=d "$range" 2>/dev/null | sort -u)
+else
 files=$(
   { git ls-files --others --exclude-standard 2>/dev/null
     git diff --name-only HEAD 2>/dev/null
     git diff --cached --name-only 2>/dev/null; } | sort -u
 )
+fi
 
 rows=""
 add_row() { rows="$rows$(printf '[%s]  %-48s %-26s -> %s' "$1" "$2" "$3" "$4")

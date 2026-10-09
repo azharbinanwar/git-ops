@@ -10,6 +10,7 @@ disable-model-invocation: true
 - Repo: !`gh repo view --json nameWithOwner,isPrivate,isInOrganization --jq '"\(.nameWithOwner) (\(if .isPrivate then "private" else "public" end), \(if .isInOrganization then "org repo — roles apply" else "personal repo — no role choice, collaborators get write access" end))"' 2>&1 || true`
 - Existing collaborators: !`gh api 'repos/{owner}/{repo}/collaborators' --jq '.[].login' 2>/dev/null | head -15 || true`
 - Pending invites: !`gh api 'repos/{owner}/{repo}/invitations' --jq '.[].invitee.login' 2>/dev/null || true`
+- Account: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-user.sh" "$1"`
 - Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" add-collaborator`
 
 ## Task
@@ -22,9 +23,9 @@ Who should I invite? Give a GitHub username or an email.
 ```
 Follow it with the "Existing collaborators" from Context (one line: `Already in: <names>`) so the user knows who's there.
 
-Resolve who to invite:
-- No `@` in it → it's a username: validate it exists with `gh api 'users/<name>' --jq '"\(.login) | \(.type) | name:\(.name // "") | bio:\(.bio // "") | loc:\(.location // "") | \(.public_repos) repos | \(.followers) followers | joined \(.created_at[:10])"'` once. Not found → say no GitHub account by that name exists, suggest checking the spelling, ask for the exact username or email, and stop — never show the invite picker for an unverified name. If type is Organization → say an organization can't be invited as a collaborator and stop.
-- Contains `@` → it's an email: run `gh api 'search/users?q=<email> in:email' --jq '.items[].login'` once. Exactly one match → use that username, and show both (email → resolved username) so the user can verify it's the right person. Zero or multiple matches → say the email can't be resolved (GitHub only finds public emails) and ask for the username instead; stop.
+Who to invite comes from "Account" above — already resolved, run no lookup of your own (no gh search, no retries, no timeouts):
+- `user: <login> | <type> | …` → that's the person; if type is Organization, say organizations can't be invited and stop. When the input was an email, show `email → login` so the user can verify.
+- `none: …` or `error: …` → relay that line in plain words, ask for the exact GitHub username, and stop.
 
 If the resolved username is already in "Existing collaborators" or "Pending invites" above, say so and stop — nothing to send.
 

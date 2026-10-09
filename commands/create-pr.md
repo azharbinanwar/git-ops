@@ -12,7 +12,7 @@ disable-model-invocation: true
 - Commits since origin/HEAD: !`git log origin/HEAD..HEAD --oneline -20 2>/dev/null || true`
 - Change list: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/change-list.sh"`
 - Diff size: !`git diff origin/HEAD...HEAD --shortstat 2>/dev/null || true`
-- Secrets: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/secrets-scan.sh"`
+- Secrets: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/secrets-scan.sh" origin/HEAD...HEAD`
 - Last commit on this branch: !`git log -1 --format="%h %s (%cr)" 2>/dev/null || true`
 - Open PR for this branch: !`gh pr view --json url -q .url 2>/dev/null || echo "none"`
 - Suggestions: !`bash "${CLAUDE_PLUGIN_ROOT}/scripts/suggest.sh" create-pr`

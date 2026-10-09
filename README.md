@@ -169,7 +169,7 @@ Since 1.5.0, the mechanical half of every major flow runs as a bundled shell scr
 
 Determinism is the bigger win: `--force` and `--no-verify` don't exist in the scripts, failures print exactly what happened and stop, and every commit receipt lists the files that actually went in. Model pins (`haiku`/`sonnet`) and `effort: low` on all mechanical commands keep the judgment half cheap and predictable too.
 
-Scripts are plain `bash` + `git` + `gh`. **Tested on macOS; designed for Linux and Windows (git-bash)** — `bash tests.sh` runs the offline test suite (21 checks, no network needed), and CI runs it on all three platforms.
+Scripts are plain `bash` + `git` + `gh`. **Tested on macOS; designed for Linux and Windows (git-bash)** — `bash tests.sh` runs the offline test suite (no network needed), and CI runs it on all three platforms.
 
 ## Design principles
 
